@@ -1,4 +1,4 @@
-package fragments;
+package com.example.android_2_final_project.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class loginPageFragment extends Fragment {
+import com.example.android_2_final_project.R;
+
+public class LoginPageFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -19,7 +21,7 @@ public class loginPageFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable  ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.fragment_login_page,container,false);
     }
 
     @Override
