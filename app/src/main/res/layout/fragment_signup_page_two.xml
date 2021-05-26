@@ -1,6 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="@string/sign_up"
+        android:textAllCaps="true"
+        android:textSize="60sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="55dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/signup_answer_intro"
+        android:textAlignment="center" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="50dp"
+        android:layout_weight="1"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/signup_vertical_guideline_33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.40" />
+
+            <TextView
+                android:id="@+id/question_text_view_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/question_number_1"
+                tools:layout_editor_absoluteX="20dp" />
+
+            <RadioGroup
+                android:id="@+id/signup_question_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/signup_vertical_guideline_33"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_text_view_1">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:text="answer 1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:text="answer 2" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:text="answer 3" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/question_text_view_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:text="question number 2"
+                app:layout_constraintTop_toBottomOf="@id/signup_question_1" />
+
+            <RadioGroup
+                android:id="@+id/signup_question_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/signup_vertical_guideline_33"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_text_view_2">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:text="answer 1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:text="answer 2" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:text="answer 3" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/question_text_view_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:text="question number 3"
+                app:layout_constraintTop_toBottomOf="@id/signup_question_2" />
+
+            <RadioGroup
+                android:id="@+id/signup_question_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/signup_vertical_guideline_33"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_text_view_3">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:text="answer 1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:text="answer 2" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:text="answer 3" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/question_text_view_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:text="question number 4"
+                app:layout_constraintTop_toBottomOf="@id/signup_question_3" />
+
+            <RadioGroup
+                android:id="@+id/signup_question_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/signup_vertical_guideline_33"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_text_view_4">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:text="answer 1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:text="answer 2" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:text="answer 3" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/question_text_view_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:text="question number 5"
+                app:layout_constraintTop_toBottomOf="@id/signup_question_4" />
+
+            <RadioGroup
+                android:id="@+id/signup_question_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/signup_vertical_guideline_33"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_text_view_5">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:text="answer 1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:text="answer 2" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:text="answer 3" />
+
+            </RadioGroup>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/login_page_login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="@string/submit"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/login_page_guest_mode_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:text="@string/skip"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        android:textColor="@color/black"/>
+
+</LinearLayout>
