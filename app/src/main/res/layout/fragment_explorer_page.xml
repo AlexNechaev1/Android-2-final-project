@@ -5,16 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/explorer_list_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:layout_gravity="bottom"
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:menu="@menu/navigation_menu"/>
 
 
 
