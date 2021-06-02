@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
 }
 
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -40,4 +42,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation 'com.google.firebase:firebase-database:20.0.0' //For realtime databse
+    implementation 'com.google.firebase:firebase-auth:21.0.1' //For realtime databse
+    implementation 'com.google.firebase:firebase-messaging:22.0.0' //For realtime databse
 }
+
