@@ -6,7 +6,7 @@
     android:minHeight="120dp">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/explore_cell_imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -19,7 +19,7 @@
 
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/explore_cell_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -27,8 +27,8 @@
         android:text="Main Title"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintStart_toEndOf="@+id/explore_cell_imageView"
+        app:layout_constraintTop_toTopOf="@+id/explore_cell_imageView" />
 
     <TextView
         android:id="@+id/first_description_text_view"
@@ -38,8 +38,8 @@
         android:text="first description"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/second_description_text_view"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toEndOf="@+id/explore_cell_imageView"
+        app:layout_constraintTop_toBottomOf="@+id/explore_cell_title" />
 
     <TextView
         android:id="@+id/second_description_text_view"
@@ -49,8 +49,8 @@
         android:layout_marginBottom="10dp"
         android:text="second description"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toEndOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/explore_cell_imageView"
+        app:layout_constraintStart_toEndOf="@+id/explore_cell_imageView" />
 
     <ImageButton
         android:layout_width="55dp"
