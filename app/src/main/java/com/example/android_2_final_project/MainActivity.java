@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.android_2_final_project.fragments.CarDetailsFragment;
 import com.example.android_2_final_project.fragments.ExploreFragment;
 import com.example.android_2_final_project.fragments.LoginPageFragment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements ExploreFragment.ExploreListener, LoginPageFragment.LoginListener {
 
-    private FirebaseAuth mAuth;
+//    private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private LoginPageFragment loginPageFragment;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements ExploreFragment.E
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance();
+//        mAuth = FirebaseAuth.getInstance();
         loginPageFragment = new LoginPageFragment();
 //        getSupportFragmentManager().beginTransaction().add(R.id.root, new LoginPageFragment()).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.root, new ExploreFragment()).commit();
@@ -49,23 +50,26 @@ public class MainActivity extends AppCompatActivity implements ExploreFragment.E
     public void onCardClicked(int position) {
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
 
-            getSupportFragmentManager()
-                    .beginTransaction()
+            getSupportFragmentManager().popBackStack();
+            getSupportFragmentManager().beginTransaction()
                     .setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_right,R.anim.enter_from_left, R.anim.exit_to_right)
-                    .addToBackStack("login")
+                    .addToBackStack("login_frag")
                     .add(R.id.root, loginPageFragment).commit();
         }
         else{
-            Toast.makeText(this, "Already signed in", Toast.LENGTH_SHORT).show();
+            CarDetailsFragment carDetailsFragment = new CarDetailsFragment();
+            getSupportFragmentManager()
+                    .beginTransaction().setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_right,R.anim.enter_from_left, R.anim.exit_to_right)
+                    .addToBackStack("details_frag")
+                    .add(R.id.root, carDetailsFragment).commit();
         }
     }
-
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        mAuth.addAuthStateListener(mAuthListener);
+        FirebaseAuth.getInstance().addAuthStateListener(mAuthListener);
     }
 
     @Override
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements ExploreFragment.E
             FirebaseAuth.getInstance().signOut();
         }
 
-        mAuth.removeAuthStateListener(mAuthListener);
+        FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
     }
 
     @Override

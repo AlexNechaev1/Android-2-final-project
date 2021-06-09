@@ -5,20 +5,30 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.android_2_final_project.ExploreCellData;
 import com.example.android_2_final_project.R;
 import com.example.android_2_final_project.adapters.RecyclerViewAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 
 public class ExploreFragment extends Fragment implements RecyclerViewAdapter.ItemClickListener {
 
     public interface ExploreListener {
         void onCardClicked(int position);
+    }
+
+    public ExploreFragment newInstance() {
+        ExploreFragment fragment = new ExploreFragment();
+        Bundle args = new Bundle();
+        return fragment;
     }
 
     private ExploreListener exploreListener;
@@ -28,10 +38,9 @@ public class ExploreFragment extends Fragment implements RecyclerViewAdapter.Ite
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        try{
+        try {
             this.exploreListener = (ExploreListener) context;
-        }
-        catch (ClassCastException e){
+        } catch (ClassCastException e) {
             throw new ClassCastException("Must implement ExploreListener interface");
         }
 
@@ -48,7 +57,7 @@ public class ExploreFragment extends Fragment implements RecyclerViewAdapter.Ite
 
     @Override
     public void onItemClick(View view, int position) {
-        exploreListener.onCardClicked(position);
+
     }
 
 
@@ -66,6 +75,9 @@ public class ExploreFragment extends Fragment implements RecyclerViewAdapter.Ite
             @Override
             public void onItemClick(View view, int position) {
                 exploreListener.onCardClicked(position);
+
+
+
             }
         });
 
@@ -77,9 +89,9 @@ public class ExploreFragment extends Fragment implements RecyclerViewAdapter.Ite
 
     private void updateList() {
 
-        for (int i=0;i<30;i++){
+        for (int i = 0; i < 30; i++) {
             exploreCarList.add(new ExploreCellData(
-                    "Title"+(i+1),
+                    "Title" + (i + 1),
                     "first description",
                     "second description"));
         }
