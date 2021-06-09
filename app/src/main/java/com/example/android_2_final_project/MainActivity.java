@@ -15,7 +15,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private LoginPageFragment loginPageFragment;
@@ -55,14 +54,4 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
     }
-
-//    @Override
-//    public void onLoginSuccess() {
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .remove(loginPageFragment)
-//                .commit();
-//
-//        getSupportFragmentManager().popBackStack();
-//    }
 }
