@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/exploreFragment">
+
+    <fragment
+        tools:layout="@layout/fragment_explorer_page"
+        android:id="@+id/exploreFragment"
+        android:name="com.example.android_2_final_project.fragments.ExploreFragment"
+        android:label="ExploreFragment">
+        <action
+            android:id="@+id/action_exploreFragment_to_carDetailsFragment"
+            app:destination="@id/carDetailsFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
+        <action
+            android:id="@+id/action_exploreFragment_to_loginPageFragment"
+            app:destination="@id/loginPageFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_login_page"
+        android:id="@+id/loginPageFragment"
+        android:name="com.example.android_2_final_project.fragments.LoginPageFragment"
+        android:label="LoginPageFragment" >
+        <action
+            android:id="@+id/action_loginPageFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment"
+            app:popUpTo="@id/exploreFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_car_details_page"
+        android:id="@+id/carDetailsFragment"
+        android:name="com.example.android_2_final_project.fragments.CarDetailsFragment"
+        android:label="CarDetailsFragment" >
+        <argument
+            android:name="car"
+            app:argType="com.example.android_2_final_project.models.Car" />
+    </fragment>
+</navigation>

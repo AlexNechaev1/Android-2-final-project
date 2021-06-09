@@ -16,6 +16,9 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.android_2_final_project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,12 +29,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginPageFragment extends Fragment {
-
-    public interface LoginListener {
-        void onLoginSuccess();
-    }
-
-    private LoginListener loginListener;
 
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -46,18 +43,6 @@ public class LoginPageFragment extends Fragment {
 
     private TextWatcher mEmailWatcher;
     private TextWatcher mPasswordWatcher;
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            loginListener = (LoginListener) context;
-        } catch (ClassCastException ex) {
-            throw new ClassCastException("Activity must implement LoginListener interface");
-        }
-    }
-
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -130,12 +115,15 @@ public class LoginPageFragment extends Fragment {
 
                             hideProgressBar();
 
-                            if (loginListener != null && task.isSuccessful()) {
-                                Snackbar.make(view, getString(R.string.login_success), Snackbar.LENGTH_SHORT).show();
-                                loginListener.onLoginSuccess();
-                            }
-                            else if (loginListener != null) {
-                                Snackbar.make(view, getString(R.string.login_failed), Snackbar.LENGTH_SHORT).show();
+                            if (task.isSuccessful()) {
+                                // Navigate to exploreFragment
+                                NavHostFragment navHostFragment = (NavHostFragment) requireActivity()
+                                        .getSupportFragmentManager()
+                                        .findFragmentById(R.id.nav_host_fragment);
+
+                                NavController navController = navHostFragment.getNavController();
+
+                                navController.popBackStack();
                             }
                         }
                     });
@@ -152,8 +140,6 @@ public class LoginPageFragment extends Fragment {
                 // navigate to CreateUserFragment
             }
         });
-
-
     }
 
     private void hideProgressBar() {

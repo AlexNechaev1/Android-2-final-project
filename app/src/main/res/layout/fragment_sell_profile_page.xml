@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/main_title_text_view"
+        android:id="@+id/car_model_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -35,24 +35,24 @@
         app:layout_constraintTop_toBottomOf="@+id/car_img" />
 
     <TextView
-        android:id="@+id/first_description_text_view"
+        android:id="@+id/manufacture_year_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="first description"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_title_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/car_model_tv" />
 
     <TextView
-        android:id="@+id/second_description_text_view"
+        android:id="@+id/description_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="second description"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/first_description_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/manufacture_year_text_view" />
 
     <Button
         android:id="@+id/sell_profile_sold_btn"
@@ -62,6 +62,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/car_img"
         app:layout_constraintStart_toStartOf="@+id/car_img"
-        app:layout_constraintTop_toBottomOf="@+id/second_description_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/description_text_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

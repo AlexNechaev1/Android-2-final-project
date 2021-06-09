@@ -13,7 +13,7 @@ import com.example.android_2_final_project.fragments.LoginPageFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity implements ExploreFragment.ExploreListener, LoginPageFragment.LoginListener {
+public class MainActivity extends AppCompatActivity {
 
 //    private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -25,11 +25,6 @@ public class MainActivity extends AppCompatActivity implements ExploreFragment.E
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        mAuth = FirebaseAuth.getInstance();
-        loginPageFragment = new LoginPageFragment();
-//        getSupportFragmentManager().beginTransaction().add(R.id.root, new LoginPageFragment()).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.root, new ExploreFragment()).commit();
-
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -39,30 +34,8 @@ public class MainActivity extends AppCompatActivity implements ExploreFragment.E
                 if (user != null) {
                     Log.d("markomarko", "onAuthStateChanged: " + user.getEmail());
                 }
-
-
             }
         };
-
-    }
-
-    @Override
-    public void onCardClicked(int position) {
-        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-
-            getSupportFragmentManager().popBackStack();
-            getSupportFragmentManager().beginTransaction()
-                    .setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_right,R.anim.enter_from_left, R.anim.exit_to_right)
-                    .addToBackStack("login_frag")
-                    .add(R.id.root, loginPageFragment).commit();
-        }
-        else{
-            CarDetailsFragment carDetailsFragment = new CarDetailsFragment();
-            getSupportFragmentManager()
-                    .beginTransaction().setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_right,R.anim.enter_from_left, R.anim.exit_to_right)
-                    .addToBackStack("details_frag")
-                    .add(R.id.root, carDetailsFragment).commit();
-        }
     }
 
     @Override
@@ -83,13 +56,13 @@ public class MainActivity extends AppCompatActivity implements ExploreFragment.E
         FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
     }
 
-    @Override
-    public void onLoginSuccess() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .remove(loginPageFragment)
-                .commit();
-
-        getSupportFragmentManager().popBackStack();
-    }
+//    @Override
+//    public void onLoginSuccess() {
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .remove(loginPageFragment)
+//                .commit();
+//
+//        getSupportFragmentManager().popBackStack();
+//    }
 }

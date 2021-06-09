@@ -1,6 +1,5 @@
 package com.example.android_2_final_project.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,42 +8,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android_2_final_project.ExploreCellData;
 import com.example.android_2_final_project.R;
 import com.example.android_2_final_project.adapters.RecyclerViewAdapter;
+import com.example.android_2_final_project.models.Car;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
 public class ExploreFragment extends Fragment implements RecyclerViewAdapter.ItemClickListener {
 
-    public interface ExploreListener {
-        void onCardClicked(int position);
-    }
-
-    public ExploreFragment newInstance() {
-        ExploreFragment fragment = new ExploreFragment();
-        Bundle args = new Bundle();
-        return fragment;
-    }
-
-    private ExploreListener exploreListener;
-    private ArrayList<ExploreCellData> exploreCarList;
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-        try {
-            this.exploreListener = (ExploreListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException("Must implement ExploreListener interface");
-        }
-
-    }
+    private ArrayList<Car> exploreCarList;
+    private RecyclerViewAdapter mAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,12 +30,27 @@ public class ExploreFragment extends Fragment implements RecyclerViewAdapter.Ite
 
         exploreCarList = new ArrayList<>();
         updateList();
+
+        mAdapter = new RecyclerViewAdapter(getActivity(), exploreCarList);
+        mAdapter.setClickListener(this);
     }
 
 
     @Override
     public void onItemClick(View view, int position) {
+        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+            // Navigate to carDetailsFragment
+            Car car = exploreCarList.get(position);
 
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("car", car); // TODO: make key static
+
+            Navigation.findNavController(view).navigate(R.id.action_exploreFragment_to_carDetailsFragment, bundle);
+        }
+        else {
+            // Navigate to loginFragment
+            Navigation.findNavController(view).navigate(R.id.action_exploreFragment_to_loginPageFragment);
+        }
     }
 
 
@@ -67,21 +60,9 @@ public class ExploreFragment extends Fragment implements RecyclerViewAdapter.Ite
 
         View rootView = inflater.inflate(R.layout.fragment_explorer_page, container, false);
         RecyclerView recyclerView = rootView.findViewById(R.id.explorer_list_recycler_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getActivity(), exploreCarList);
-
-        adapter.setClickListener(new RecyclerViewAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                exploreListener.onCardClicked(position);
-
-
-
-            }
-        });
-
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(mAdapter);
 
         return rootView;
     }
@@ -90,10 +71,12 @@ public class ExploreFragment extends Fragment implements RecyclerViewAdapter.Ite
     private void updateList() {
 
         for (int i = 0; i < 30; i++) {
-            exploreCarList.add(new ExploreCellData(
-                    "Title" + (i + 1),
-                    "first description",
-                    "second description"));
+            exploreCarList.add(new Car(
+                    "https://i0.wp.com/pdlv.fr/wp-content/uploads/2020/05/steve-apige-dickmobile.jpg",
+                    "car model " + "199" + i,
+                    "some desc",
+                    i
+                    ));
         }
     }
 }

@@ -1,15 +1,17 @@
 package com.example.android_2_final_project.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.android_2_final_project.ExploreCellData;
+
+import com.bumptech.glide.Glide;
 import com.example.android_2_final_project.R;
+import com.example.android_2_final_project.models.Car;
+
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
@@ -18,13 +20,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         void onItemClick(View view, int position);
     }
 
-    private List<ExploreCellData> mData;
+    private List<Car> mCars;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private Context mContext;
 
-    public RecyclerViewAdapter(Context context, List<ExploreCellData> data) {
-        this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+    public RecyclerViewAdapter(Context context, List<Car> cars) {
+        mInflater = LayoutInflater.from(context);
+        mCars = cars;
+        mContext = context;
     }
 
     @Override
@@ -35,38 +39,38 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ExploreCellData data = mData.get(position);
+        Car car = mCars.get(position);
 
-        holder.title.setText(data.getTitle());
-        holder.firstDescription.setText(data.getFirstDescription());
-        holder.firstDescription.setText(data.getSecondDescription());
+        Glide.with(mContext).load(car.getImagePath()).into(holder.image);
+        holder.carModelTv.setText(car.getCarModel());
+        holder.manufactureYearTv.setText(mContext.getString(R.string.empty_string, car.getManufactureYear()));
+        holder.descriptionTv.setText((car.getDescription()));
     }
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mCars.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView image;
-        TextView title;
-        TextView firstDescription;
-        TextView secondDescription;
+        TextView carModelTv;
+        TextView manufactureYearTv;
+        TextView descriptionTv;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.explore_cell_imageView);
-            title = itemView.findViewById(R.id.explore_cell_title);
-            firstDescription = itemView.findViewById(R.id.first_description_text_view);
-            secondDescription = itemView.findViewById(R.id.second_description_text_view);
+            carModelTv = itemView.findViewById(R.id.car_model_tv);
+            manufactureYearTv = itemView.findViewById(R.id.manufacture_year_text_view);
+            descriptionTv = itemView.findViewById(R.id.description_text_view);
 
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            Log.d("markomarko", "onClick: " + getAdapterPosition());
             if (mClickListener != null){
                 mClickListener.onItemClick(view, getAdapterPosition());
             }
@@ -74,8 +78,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     // convenience method for getting data at click position
-    public ExploreCellData getItem(int id) {
-        return mData.get(id);
+    public Car getItem(int id) {
+        return mCars.get(id);
     }
 
     // allows clicks events to be caught
