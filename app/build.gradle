@@ -44,7 +44,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation 'com.google.firebase:firebase-database:20.0.0' //For realtime databse
-    implementation 'com.google.firebase:firebase-auth:21.0.1' //For realtime databse
-    implementation 'com.google.firebase:firebase-messaging:22.0.0' //For realtime databse
+    implementation 'com.google.firebase:firebase-auth:21.0.1' //For user authentication
+    implementation 'com.google.firebase:firebase-messaging:22.0.0' //For cloud messaging and
 }
 
