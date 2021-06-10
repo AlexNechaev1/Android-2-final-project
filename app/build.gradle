@@ -54,5 +54,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.0.0' //For realtime databse
     implementation 'com.google.firebase:firebase-auth:21.0.1' //For user authentication
     implementation 'com.google.firebase:firebase-messaging:22.0.0' //For cloud messaging and
+
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 }
 

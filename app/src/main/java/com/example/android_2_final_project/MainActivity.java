@@ -2,11 +2,8 @@ package com.example.android_2_final_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.example.android_2_final_project.fragments.CarDetailsFragment;
 import com.example.android_2_final_project.fragments.ExploreFragment;
 import com.example.android_2_final_project.fragments.LoginPageFragment;
@@ -25,14 +22,13 @@ public class MainActivity extends AppCompatActivity {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                Log.d("markomarko", "onAuthStateChanged: ");
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 if (user != null) {
-                    Log.d("markomarko", "onAuthStateChanged: " + user.getEmail());
                 }
             }
         };
+
     }
 
     @Override
