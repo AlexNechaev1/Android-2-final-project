@@ -6,10 +6,10 @@
     app:startDestination="@id/exploreFragment">
 
     <fragment
-        tools:layout="@layout/fragment_explorer_page"
         android:id="@+id/exploreFragment"
         android:name="com.example.android_2_final_project.fragments.ExploreFragment"
-        android:label="ExploreFragment">
+        android:label="ExploreFragment"
+        tools:layout="@layout/fragment_explorer_page">
         <action
             android:id="@+id/action_exploreFragment_to_carDetailsFragment"
             app:destination="@id/carDetailsFragment"
@@ -26,23 +26,48 @@
             app:popExitAnim="@anim/exit_to_right" />
     </fragment>
     <fragment
-        tools:layout="@layout/fragment_login_page"
         android:id="@+id/loginPageFragment"
         android:name="com.example.android_2_final_project.fragments.LoginPageFragment"
-        android:label="LoginPageFragment" >
+        android:label="LoginPageFragment"
+        tools:layout="@layout/fragment_login_page">
         <action
             android:id="@+id/action_loginPageFragment_to_exploreFragment"
             app:destination="@id/exploreFragment"
             app:popUpTo="@id/exploreFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginPageFragment_to_signupPageOne"
+            app:destination="@id/signupPageOne" />
     </fragment>
     <fragment
-        tools:layout="@layout/fragment_car_details_page"
         android:id="@+id/carDetailsFragment"
         android:name="com.example.android_2_final_project.fragments.CarDetailsFragment"
-        android:label="CarDetailsFragment" >
+        android:label="CarDetailsFragment"
+        tools:layout="@layout/fragment_car_details_page">
         <argument
             android:name="car"
             app:argType="com.example.android_2_final_project.models.Car" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_signup_page_one"
+        android:id="@+id/signupPageOne"
+        android:name="com.example.android_2_final_project.fragments.SignUpPageOneFragment"
+        android:label="signupPageOneFragment" >
+        <action
+            android:id="@+id/action_signupPageOne_to_signupPageTwo"
+            app:destination="@id/signupPageTwo"
+            app:popUpTo="@id/signupPageTwo"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_signup_page_two"
+        android:id="@+id/signupPageTwo"
+        android:name="com.example.android_2_final_project.fragments.SignUpPageTwoFragment"
+        android:label="signupPageOneFragment" >
+        <action
+            android:id="@+id/action_signupPageTwo_to_explorerFragment"
+            app:destination="@id/exploreFragment"
+            app:popUpTo="@id/exploreFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
