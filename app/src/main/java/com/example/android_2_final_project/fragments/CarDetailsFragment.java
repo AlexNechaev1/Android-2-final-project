@@ -12,19 +12,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-
 import com.bumptech.glide.Glide;
 import com.example.android_2_final_project.R;
 import com.example.android_2_final_project.models.Car;
 import com.google.android.material.appbar.AppBarLayout;
 
-import java.util.Objects;
 
 public class CarDetailsFragment extends Fragment {
 
@@ -130,9 +127,16 @@ public class CarDetailsFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        CharSequence title = item.getTitle();
+        switch (item.getItemId()){
+            case R.id.action_go_to_seller:
+                // navigate to seller profile
+                break;
+            case R.id.action_follow:
+                // add current post to user's saved posts.
+                break;
+        }
 
-        Log.d("markomarko", "onOptionsItemSelected: " + title);
+//        Log.d("markomarko", "onOptionsItemSelected: " + title);
 
         return super.onOptionsItemSelected(item);
     }

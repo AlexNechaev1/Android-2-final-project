@@ -10,6 +10,9 @@ import com.example.android_2_final_project.fragments.LoginPageFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -28,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-
     }
 
     @Override

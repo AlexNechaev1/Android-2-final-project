@@ -7,14 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.android_2_final_project.R;
 import com.example.android_2_final_project.models.Car;
-
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class ExploreRecyclerViewAdapter extends RecyclerView.Adapter<ExploreRecyclerViewAdapter.ViewHolder> {
 
     public interface ItemClickListener {
         void onItemClick(View view, int position);
@@ -25,7 +24,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ItemClickListener mClickListener;
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, List<Car> cars) {
+    public ExploreRecyclerViewAdapter(Context context, List<Car> cars) {
         mInflater = LayoutInflater.from(context);
         mCars = cars;
         mContext = context;

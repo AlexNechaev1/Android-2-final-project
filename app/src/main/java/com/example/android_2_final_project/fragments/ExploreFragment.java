@@ -13,16 +13,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_2_final_project.R;
-import com.example.android_2_final_project.adapters.RecyclerViewAdapter;
+import com.example.android_2_final_project.adapters.ExploreRecyclerViewAdapter;
 import com.example.android_2_final_project.models.Car;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
-public class ExploreFragment extends Fragment implements RecyclerViewAdapter.ItemClickListener {
+public class ExploreFragment extends Fragment implements ExploreRecyclerViewAdapter.ItemClickListener {
 
     private ArrayList<Car> exploreCarList;
-    private RecyclerViewAdapter mAdapter;
+    private ExploreRecyclerViewAdapter mAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,15 +30,25 @@ public class ExploreFragment extends Fragment implements RecyclerViewAdapter.Ite
 
         exploreCarList = new ArrayList<>();
         updateList();
+        updateList();
+        updateList();
+        updateList();
+        updateList();
+        updateList();
+        updateList();
+        updateList();
+        updateList();
+        updateList();
 
-        mAdapter = new RecyclerViewAdapter(getActivity(), exploreCarList);
+
+        mAdapter = new ExploreRecyclerViewAdapter(getActivity(), exploreCarList);
         mAdapter.setClickListener(this);
     }
 
 
     @Override
     public void onItemClick(View view, int position) {
-        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             // Navigate to carDetailsFragment
             Car car = exploreCarList.get(position);
 
@@ -70,9 +80,9 @@ public class ExploreFragment extends Fragment implements RecyclerViewAdapter.Ite
 
     private void updateList() {
 
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 9; i++) {
             exploreCarList.add(new Car(
-                    "https://i0.wp.com/pdlv.fr/wp-content/uploads/2020/05/steve-apige-dickmobile.jpg",
+                    "https://loremflickr.com/60" + i + "/500/car",
                     "car model " + "199" + i,
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed suscipit libero. Quisque malesuada mattis augue in tempus. Morbi massa tortor, feugiat at pretium eget, maximus in elit. Aliquam id sagittis eros. Nam pretium vel tortor eu auctor. Nam orci nisl, facilisis sit amet elementum a, tincidunt vel risus. Etiam maximus in quam in commodo. Phasellus a justo sed nunc molestie egestas ac quis sem. Phasellus dignissim euismod suscipit. Nulla sit amet aliquam ante. Cras fermentum neque sed tincidunt bibendum.\n" +
                             "\n" +
@@ -80,7 +90,7 @@ public class ExploreFragment extends Fragment implements RecyclerViewAdapter.Ite
                             "\n" +
                             "Vivamus sit amet est ut tortor porta congue at quis purus. Morbi mattis erat egestas, scelerisque lectus ut, ultricies sapien. Morbi imperdiet, enim sit amet ultricies mollis, lectus augue eleifend metus, in sodales erat massa et lacus. Proin purus massa, congue et eros congue, pellentesque facilisis elit. Nullam volutpat lectus et sapien scelerisque consequat. Fusce lobortis pharetra dolor, et gravida nisl malesuada at. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam lacinia nibh a dui venenatis, sit amet varius tellus efficitur. Quisque accumsan orci at eros eleifend gravida. In aliquam enim nec libero rhoncus euismod. Praesent risus tellus, dictum nec tortor a, congue interdum sem. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum faucibus, libero quis vehicula dignissim, risus diam ornare purus, ac vulputate dolor elit at ligula. In in ligula id nulla porta fringilla eget eu dui. Aliquam erat volutpat. Suspendisse potenti.",
                     i
-                    ));
+            ));
         }
     }
 }

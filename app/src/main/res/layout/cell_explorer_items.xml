@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_gravity="center"
-    android:layout_margin="10dp"
-    android:padding="10dp"
+    android:layout_margin="3dp"
+    android:padding="1dp"
     android:elevation="10dp"
     android:layout_height="wrap_content">
 
@@ -14,52 +14,51 @@
 
         <ImageView
             android:id="@+id/explore_cell_imageView"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:transitionName="container_transition"
-            android:layout_margin="10dp"
-            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
             android:background="@color/teal_700"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_foreground"
+            android:transitionName="container_transition"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
         <TextView
             android:id="@+id/car_model_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Main Title"
+            android:text="Tesla"
             android:textSize="18sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="25dp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/explore_cell_imageView" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/manufacture_year_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="first description"
+            android:text="2021"
             android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/car_model_tv"
+            app:layout_constraintStart_toStartOf="@+id/car_model_tv"
             app:layout_constraintTop_toBottomOf="@+id/car_model_tv" />
 
         <TextView
             android:id="@+id/description_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="second description"
-            android:textSize="15sp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:text="second description"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/explore_cell_imageView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/manufacture_year_text_view" />
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

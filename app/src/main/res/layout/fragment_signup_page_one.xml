@@ -98,7 +98,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/login_page_login_btn"
+        android:id="@+id/signup_page_signup_btn"
         android:layout_marginTop="30dp"
         android:layout_width="0dp"
         android:backgroundTint="#f54748"

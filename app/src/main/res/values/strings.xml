@@ -15,7 +15,7 @@
     <string name="follow">follow car</string>
     <string name="see_profile">see profile</string>
     <string name="sells">Sells</string>
-    <string name="new_user">New user? Sign up here</string>
+    <string name="new_user">Sign up here</string>
     <string name="provide_email_and_password" translatable="false">Please provide an email and password</string>
     <string name="login_success">Login successful</string>
     <string name="login_failed">Login Failed</string>
