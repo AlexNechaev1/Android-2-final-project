@@ -1,6 +1,7 @@
 package com.example.android_2_final_project.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,6 @@ public class SignUpPageOneFragment extends Fragment {
     private TextInputEditText mPassword2Tv;
     private TextInputEditText mEmailTv;
     private TextInputEditText mUsernameTv;
-    private AuthenticationViewModel viewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,17 +46,6 @@ public class SignUpPageOneFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(AuthenticationViewModel.class);
-
-        viewModel.getUser().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
-            @Override
-            public void onChanged(FirebaseUser firebaseUser) {
-                if(firebaseUser!=null){
-                    Navigation.findNavController(view).navigate(R.id.action_signupPageOne_to_signupPageTwo);
-                }
-            }
-        });
-
         initViews(view);
 
         setListeners();
@@ -72,8 +61,6 @@ public class SignUpPageOneFragment extends Fragment {
 
     private void setListeners() {
 
-
-
         mSignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,11 +70,18 @@ public class SignUpPageOneFragment extends Fragment {
                 String password2 = mPassword2Tv.getText().toString();
 
                 if (!username.trim().isEmpty() && !email.trim().isEmpty() && !email.trim().isEmpty() && !password2.trim().isEmpty()) {
-                    if(password1.equals(password2)){
-                        viewModel.signUp(email,password1);
-                    }else{
+                    if (password1.equals(password2)) {
+                        Bundle args = new Bundle();
+                        args.putString("username", username);
+                        args.putString("password", password1);
+                        args.putString("email", email);
+
+                        //TODO: check if user exits: if false - Navigate. else- show error.
+                        Navigation.findNavController(v).navigate(R.id.action_signUpPageOneFragment_to_signUpPageTwoFragment, args);
+                    }
+                    else {
                         //Password doesn't match
-                        Snackbar.make(v,getString(R.string.missMatchPassword),Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(v, getString(R.string.missMatchPassword), Snackbar.LENGTH_SHORT).show();
                     }
                 }
                 else {
