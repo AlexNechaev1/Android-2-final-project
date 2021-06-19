@@ -20,10 +20,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import com.example.android_2_final_project.R;
-import com.example.android_2_final_project.viewmodels.UserViewModel;
+import com.example.android_2_final_project.viewmodels.AuthenticationViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -41,7 +40,7 @@ public class LoginPageFragment extends Fragment {
     private TextWatcher mEmailWatcher;
     private TextWatcher mPasswordWatcher;
 
-    private UserViewModel userViewModel;
+    private AuthenticationViewModel authenticationViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,8 +73,8 @@ public class LoginPageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         final NavController navController = Navigation.findNavController(view);
-        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        userViewModel.getUser().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
+        authenticationViewModel = new ViewModelProvider(requireActivity()).get(AuthenticationViewModel.class);
+        authenticationViewModel.getUser().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
                 if (firebaseUser != null) {
@@ -127,7 +126,7 @@ public class LoginPageFragment extends Fragment {
                     mProgressBar.startAnimation(progressBarSlideDown);
                     mProgressBar.setVisibility(View.VISIBLE);
 
-                    userViewModel.signIn(email, password);
+                    authenticationViewModel.signIn(email, password);
 //                    mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 //                        @Override
 //                        public void onComplete(@NonNull Task<AuthResult> task) {
@@ -157,7 +156,7 @@ public class LoginPageFragment extends Fragment {
         mNewUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // navigate to CreateUserFragment
+                Navigation.findNavController(v).navigate(R.id.action_loginPageFragment_to_signupPageOne);
             }
         });
     }
