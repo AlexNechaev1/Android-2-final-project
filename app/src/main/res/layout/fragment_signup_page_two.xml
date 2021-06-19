@@ -11,20 +11,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:gravity="center"
-        android:text="@string/sign_up"
+        android:text="Almost Done!"
         android:textAllCaps="true"
-        android:textSize="60sp"
+        android:textSize="50sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="55dp"
         android:layout_marginTop="30dp"
-        android:text="@string/signup_answer_intro"
-        android:textAlignment="center"
-        android:gravity="center_horizontal" />
+        android:gravity="center"
+        android:text="@string/signup_answer_intro" />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -52,7 +50,8 @@
                 android:layout_marginHorizontal="20dp"
                 android:text="@string/question_number_1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <RadioGroup
                 android:id="@+id/signup_question_1"
@@ -65,14 +64,17 @@
 
                 <CheckBox
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="answer 1" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="answer 2" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="answer 3" />
 
             </RadioGroup>
@@ -96,14 +98,17 @@
 
                 <CheckBox
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="answer 1" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="answer 2" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="answer 3" />
 
             </RadioGroup>
@@ -127,14 +132,17 @@
 
                 <CheckBox
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="answer 1" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="answer 2" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="answer 3" />
 
             </RadioGroup>
@@ -157,14 +165,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/question_text_view_4">
 
                 <CheckBox
+                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="answer 1" />
 
                 <CheckBox
+                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="answer 2" />
 
                 <CheckBox
+                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="answer 3" />
 
@@ -188,14 +199,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/question_text_view_5">
 
                 <CheckBox
+                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="answer 1" />
 
                 <CheckBox
+                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="answer 2" />
 
                 <CheckBox
+                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="answer 3" />
 
@@ -206,22 +220,11 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/login_page_login_btn"
+        android:id="@+id/signup_page_two_signup_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:text="@string/submit"
+        android:text="@string/sign_up"
         android:textAllCaps="false" />
-
-    <Button
-        android:id="@+id/login_page_guest_mode_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@android:color/transparent"
-        android:text="@string/skip"
-        android:textAllCaps="false"
-        android:textSize="12sp"
-        android:textColor="@color/black"/>
 
 </LinearLayout>

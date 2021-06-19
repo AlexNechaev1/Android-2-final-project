@@ -156,7 +156,7 @@ public class LoginPageFragment extends Fragment {
         mNewUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_loginPageFragment_to_signupPageOne);
+                Navigation.findNavController(v).navigate(R.id.action_loginPageFragment_to_signUpPageOneFragment);
             }
         });
     }

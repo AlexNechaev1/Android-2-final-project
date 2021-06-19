@@ -10,9 +10,11 @@ import androidx.lifecycle.ViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
 
 import javax.inject.Inject;
 
@@ -45,8 +47,10 @@ public class AuthenticationViewModel extends ViewModel {
                 if (task.isSuccessful()) {
                     if (task.getResult() != null) {
                         user.setValue(task.getResult().getUser());
+
                     }
                 }
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -57,7 +61,25 @@ public class AuthenticationViewModel extends ViewModel {
     }
 
     public void signUp(String email, String password) {
-        SignUpWithEmailAndPassword(email, password);
+
+        mFirebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+            @Override
+            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                boolean isExists = !task.getResult().getSignInMethods().isEmpty();
+                if (isExists) {
+                    Log.d("markomarko", "onComplete: user already exists");
+                }
+                else {
+                    SignUpWithEmailAndPassword(email, password);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("markomarko", "onFailure: failed  " + e.getMessage());
+            }
+        });
+
     }
 
     private void SignUpWithEmailAndPassword(String email, String password) {
@@ -68,8 +90,6 @@ public class AuthenticationViewModel extends ViewModel {
                     if (task.getResult() != null) {
                         user.setValue(task.getResult().getUser());
                     }
-                }else {
-                    Log.d("TAG", "onFailure: " + task.getResult().toString());
                 }
             }
         });

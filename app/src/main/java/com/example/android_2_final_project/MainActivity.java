@@ -50,4 +50,10 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.d("markomarko", "onBackPressed: ");
+    }
 }
