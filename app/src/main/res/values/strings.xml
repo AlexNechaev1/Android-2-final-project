@@ -9,7 +9,7 @@
     <string name="email">Email</string>
     <string name="repeat_password">Repeat password</string>
     <string name="question_number_1">אני רוצה לקנות</string>
-    <string name="signup_answer_intro">Help us to help you!<br/>Please answer a few questions</string>
+    <string name="signup_answer_intro">Help us to help you!<br/>Please answer a few questions<br/>(Optional)</string>
     <string name="skip">Skip</string>
     <string name="follow">follow car</string>
     <string name="see_profile">see profile</string>
