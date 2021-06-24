@@ -55,7 +55,11 @@
         tools:layout="@layout/fragment_signup_page_one">
         <action
             android:id="@+id/action_signUpPageOneFragment_to_signUpPageTwoFragment"
-            app:destination="@id/signUpPageTwoFragment" />
+            app:destination="@id/signUpPageTwoFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
     </fragment>
     <fragment
         android:id="@+id/signUpPageTwoFragment"
