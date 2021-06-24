@@ -1,98 +1,58 @@
 package com.example.android_2_final_project.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.android_2_final_project.Question;
 import com.example.android_2_final_project.R;
-import com.example.android_2_final_project.viewmodels.AuthenticationViewModel;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.android_2_final_project.adapters.PagerAdapter;
 
-//TODO: do better UI lol
+import java.util.ArrayList;
+
+
 public class SignUpPageTwoFragment extends Fragment {
 
-
-    private Button mSignUpBtn;
-
-    private AuthenticationViewModel viewModel;
+    public SignUpPageTwoFragment(){};
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_signup_page_two, container, false);
-    }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        ArrayList<Question> questions = new ArrayList<>();
+        questions.add(new Question("Hey","Hey","Hello","Shalom"));
+        questions.add(new Question("Bye","Bye","ByeBye","Shalom"));
+        questions.add(new Question("Car?","Yes","No","Maybe"));
+        questions.add(new Question("Hey","Hey","Hello","Shalom"));
+        questions.add(new Question("Bye","Bye","ByeBye","Shalom"));
+        questions.add(new Question("Car?","Yes","No","Maybe"));
+        questions.add(new Question("Hey","Hey","Hello","Shalom"));
+        questions.add(new Question("Bye","Bye","ByeBye","Shalom"));
+        questions.add(new Question("Car?","Yes","No","Maybe"));
+        questions.add(new Question("Hey","Hey","Hello","Shalom"));
+        questions.add(new Question("Bye","Bye","ByeBye","Shalom"));
+        questions.add(new Question("Car?","Yes","No","Maybe"));
 
+        View v = inflater.inflate(R.layout.fragment_signup_page_two,container,false);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(AuthenticationViewModel.class);
+        ViewPager2 viewPager = v.findViewById(R.id.pager);
 
-        viewModel.getUser().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
-            @Override
-            public void onChanged(FirebaseUser firebaseUser) {
-                if (firebaseUser != null) {
-                    Navigation.findNavController(view).navigate(R.id.action_signUpPageTwoFragment_to_exploreFragment);
-                }
-            }
-        });
+        PagerAdapter pagerAdapter = new PagerAdapter(this,questions.size(),questions);
 
-        //Navigation.findNavController(view).navigate(R.id.action_signupPageTwo_to_explorerFragment);
+        viewPager.setAdapter(pagerAdapter);
 
-
-        initViews(view);
-
-        setListeners();
-    }
-
-    private void initViews(View v) {
-        mSignUpBtn = v.findViewById(R.id.signup_page_two_signup_btn);
-    }
-
-    private void setListeners() {
-        mSignUpBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle args = requireArguments();
-                String email = args.getString("email");
-                String password = args.getString("password");
-                viewModel.signUp(email, password);
-            }
-        });
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("markomarko", "onPause: sign up page two");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("markomarko", "onDestroy: ");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("markomarko", "onResume: ");
+        return v;
     }
 }
