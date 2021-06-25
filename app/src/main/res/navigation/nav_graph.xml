@@ -47,6 +47,13 @@
         <argument
             android:name="car"
             app:argType="com.example.android_2_final_project.models.Car" />
+        <action
+            android:id="@+id/action_carDetailsFragment_to_profilePageFragment"
+            app:destination="@+id/profilePageFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
     </fragment>
     <fragment
         android:id="@+id/signUpPageOneFragment"
@@ -72,4 +79,8 @@
             app:popUpTo="@id/exploreFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/profilePageFragment"
+        android:name="com.example.android_2_final_project.fragments.ProfilePageFragment"
+        android:label="ProfilePageFragment" />
 </navigation>
