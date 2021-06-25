@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import com.example.android_2_final_project.fragments.CarDetailsFragment;
-import com.example.android_2_final_project.fragments.ExploreFragment;
-import com.example.android_2_final_project.fragments.LoginPageFragment;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
