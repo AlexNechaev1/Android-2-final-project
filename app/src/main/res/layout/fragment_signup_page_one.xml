@@ -9,10 +9,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:paddingHorizontal="35dp"
         android:text="@string/sign_up"
         android:textAllCaps="true"
         android:textSize="60sp"
         android:textStyle="bold"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,6 +33,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signup_page_username_edit_text"
+            android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/username" />
