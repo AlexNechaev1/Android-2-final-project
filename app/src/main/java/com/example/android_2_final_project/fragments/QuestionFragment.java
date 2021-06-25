@@ -16,10 +16,10 @@ import com.example.android_2_final_project.R;
 
 public class QuestionFragment extends Fragment {
 
-    private final static String QUESTION_KEY = "QUESTION";
-    private final static String ANSWER_1_KEY = "ANSWER_1";
-    private final static String ANSWER_2_KEY = "ANSWER_2";
-    private final static String ANSWER_3_KEY = "ANSWER_3";
+    private final static java.lang.String QUESTION_KEY = "QUESTION";
+    private final static java.lang.String ANSWER_1_KEY = "ANSWER_1";
+    private final static java.lang.String ANSWER_2_KEY = "ANSWER_2";
+    private final static java.lang.String ANSWER_3_KEY = "ANSWER_3";
 
     private TextView questionTV;
     private RadioGroup radioGroup;

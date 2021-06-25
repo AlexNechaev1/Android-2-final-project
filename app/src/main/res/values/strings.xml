@@ -20,4 +20,5 @@
     <string name="login_failed">Login Failed</string>
     <string name="empty_string">%1$d </string>
     <string name="missMatchPassword">Password doesn\'t match</string>
+    <string name="password_length_error">Password must be greater or equal to 6</string>
 </resources>

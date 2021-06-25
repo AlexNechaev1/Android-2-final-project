@@ -15,7 +15,7 @@ public class PagerAdapter extends FragmentStateAdapter {
     private final int numOfTabs;
     private final ArrayList<Question> questions;
 
-    public PagerAdapter(@NonNull Fragment fragment, int numOfTabs,ArrayList<Question> questions) {
+    public PagerAdapter(@NonNull Fragment fragment, int numOfTabs, ArrayList<Question> questions) {
         super(fragment);
         this.numOfTabs = numOfTabs;
         this.questions = questions;

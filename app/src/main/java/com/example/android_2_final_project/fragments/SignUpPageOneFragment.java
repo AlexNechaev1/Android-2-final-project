@@ -1,7 +1,6 @@
 package com.example.android_2_final_project.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +9,15 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.android_2_final_project.R;
+import com.example.android_2_final_project.models.User;
 import com.example.android_2_final_project.viewmodels.AuthenticationViewModel;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseUser;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -31,7 +30,9 @@ public class SignUpPageOneFragment extends Fragment {
     private TextInputEditText mEmailTv;
     private TextInputEditText mUsernameTv;
 
-    final static String USERNAME_KEY = "USERNAME";
+    private AuthenticationViewModel viewModel;
+
+    final static String USER_KEY = "USERNAME";
     final static String PASSWORD_KEY = "PASSWORD";
     final static String EMAIL_KEY = "EMAIL";
 
@@ -53,6 +54,28 @@ public class SignUpPageOneFragment extends Fragment {
         initViews(view);
 
         setListeners();
+
+        viewModel = new ViewModelProvider(requireActivity()).get(AuthenticationViewModel.class);
+        viewModel.setListener(new AuthenticationViewModel.AuthListener() {
+            @Override
+            public void OnCheckUserExists(boolean isExists) {
+                if (isExists) {
+                    Snackbar.make(view, "Email already exists", BaseTransientBottomBar.LENGTH_LONG).show();
+                } else {
+                    String username = mUsernameTv.getText().toString().trim();
+                    String email = mEmailTv.getText().toString().trim();
+                    String password = mPassword1Tv.getText().toString().trim();
+
+                    User newUser = new User(email, username, null);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(USER_KEY, newUser);
+                    bundle.putString(PASSWORD_KEY, password);
+
+                    Navigation.findNavController(view).navigate(R.id.action_signUpPageOneFragment_to_signUpPageTwoFragment, bundle);
+                }
+            }
+        });
     }
 
     private void initViews(View v) {
@@ -75,20 +98,17 @@ public class SignUpPageOneFragment extends Fragment {
 
                 if (!username.trim().isEmpty() && !email.trim().isEmpty() && !email.trim().isEmpty() && !password2.trim().isEmpty()) {
                     if (password1.equals(password2)) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString(USERNAME_KEY, username);
-                        bundle.putString(PASSWORD_KEY, password1);
-                        bundle.putString(EMAIL_KEY, email);
-
-                        //TODO: check if user exits: if false - Navigate. else- show error.
-                        Navigation.findNavController(v).navigate(R.id.action_signUpPageOneFragment_to_signUpPageTwoFragment, bundle);
-                    }
-                    else {
+                        if (password1.length() >= 6) {
+                            viewModel.checkIsUserExists(email);
+                        } else {
+                            // password length must be greater or equal to 6
+                            Snackbar.make(v, getString(R.string.password_length_error), Snackbar.LENGTH_SHORT).show();
+                        }
+                    } else {
                         //Password doesn't match
                         Snackbar.make(v, getString(R.string.missMatchPassword), Snackbar.LENGTH_SHORT).show();
                     }
-                }
-                else {
+                } else {
                     Snackbar.make(v, getString(R.string.provide_email_and_password), Snackbar.LENGTH_SHORT).show();
                 }
             }

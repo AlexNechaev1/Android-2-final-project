@@ -1,97 +1,102 @@
 package com.example.android_2_final_project.viewmodels;
 
-import android.util.Log;
-
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.android_2_final_project.Question;
+import com.example.android_2_final_project.repository.FirebaseRepository;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.SignInMethodQueryResult;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class AuthenticationViewModel extends ViewModel {
+public class AuthenticationViewModel extends ViewModel
+        implements FirebaseRepository.FireBaseRepositoryListener {
 
-    private final FirebaseAuth mFirebaseAuth;
+    private final FirebaseRepository mFirebaseRepository;
 
-    private final MutableLiveData<FirebaseUser> user = new MutableLiveData<>();
+    private final MutableLiveData<FirebaseUser> mUser = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Question>> mQuestions = new MutableLiveData<>();
+
+    private AuthListener listener;
+    public interface AuthListener {
+        void OnCheckUserExists(boolean isExists);
+    }
+
+    public void setListener(AuthListener listener) {
+        this.listener = listener;
+    }
 
     @Inject
-    public AuthenticationViewModel(FirebaseAuth firebaseAuth) {
-        this.mFirebaseAuth = firebaseAuth;
+    public AuthenticationViewModel(FirebaseRepository repository) {
+        this.mFirebaseRepository = repository;
+
+        mFirebaseRepository.setListener(this);
     }
 
     public LiveData<FirebaseUser> getUser() {
-        return user;
+        return mUser;
     }
 
-    public void signIn(String email, String password) {
-        emailPasswordSignIn(email, password);
+    public void checkIsUserExists(java.lang.String email) {
+        mFirebaseRepository.isUserExists(email);
     }
 
-    private void emailPasswordSignIn(String email, String password) {
-        mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    if (task.getResult() != null) {
-                        user.setValue(task.getResult().getUser());
-
-                    }
-                }
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("TAG", "onFailure: " + e.getMessage());
-            }
-        });
+    public void signIn(java.lang.String email, java.lang.String password) {
+        mFirebaseRepository.emailPasswordSignIn(email, password);
     }
 
-    public void signUp(String email, String password) {
-
-        mFirebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
-            @Override
-            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                boolean isExists = !task.getResult().getSignInMethods().isEmpty();
-                if (isExists) {
-                    Log.d("markomarko", "onComplete: user already exists");
-                }
-                else {
-                    SignUpWithEmailAndPassword(email, password);
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("markomarko", "onFailure: failed  " + e.getMessage());
-            }
-        });
-
+    public void signUp(java.lang.String email, java.lang.String password) {
+        mFirebaseRepository.signUp(email, password);
     }
 
-    private void SignUpWithEmailAndPassword(String email, String password) {
-        mFirebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    if (task.getResult() != null) {
-                        user.setValue(task.getResult().getUser());
-                    }
-                }
-            }
-        });
+    public LiveData<ArrayList<Question>> getQuestions () {
+        return mQuestions;
     }
+
+    @Override
+    public void OnSignInSuccessful(FirebaseUser user) {
+        mUser.setValue(user);
+    }
+
+    @Override
+    public void OnSignUpSuccessful(FirebaseUser user) {
+        mUser.setValue(user);
+
+        mFirebaseRepository.registerUserInRealtime(user);
+    }
+
+    @Override
+    public void OnUserExists(boolean isExists) {
+        listener.OnCheckUserExists(isExists);
+    }
+
+    //    public void signIn(String email, String password) {
+//        emailPasswordSignIn(email, password);
+//    }
+
+//    private void emailPasswordSignIn(String email, String password) {
+//        mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if (task.isSuccessful()) {
+//                    if (task.getResult() != null) {
+//                        user.setValue(task.getResult().getUser());
+//
+//                    }
+//                }
+//
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Log.d("TAG", "onFailure: " + e.getMessage());
+//            }
+//        });
+//    }
 }

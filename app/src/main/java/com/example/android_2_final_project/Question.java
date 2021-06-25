@@ -1,11 +1,13 @@
 package com.example.android_2_final_project;
 
-public class Question {
+import java.io.Serializable;
 
-    String question;
-    String answersOne;
-    String answersTwo;
-    String answersThree;
+public class Question implements Serializable {
+
+    java.lang.String question;
+    java.lang.String answersOne;
+    java.lang.String answersTwo;
+    java.lang.String answersThree;
 
     public Question(String question, String answersOne, String answersTwo, String answersThree) {
         this.question = question;

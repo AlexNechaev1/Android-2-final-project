@@ -12,4 +12,5 @@
     <string name="signup_answer_intro">Help us to help you!<br/>Answer those simple questions to eliminate unwanted results</string>
     <string name="submit">Submit</string>
     <string name="skip">Skip</string>
+    <string name="password_length_error">Password must be greater or equal to 6</string>
 </resources>
