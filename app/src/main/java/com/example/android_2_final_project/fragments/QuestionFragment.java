@@ -14,14 +14,12 @@ import androidx.fragment.app.Fragment;
 import com.example.android_2_final_project.Question;
 import com.example.android_2_final_project.R;
 
-import java.util.Objects;
-
 public class QuestionFragment extends Fragment {
 
-    final static String QUESTION_KEY = "QUESTION";
-    final static String ANSWER_1_KEY = "ANSWER_1";
-    final static String ANSWER_2_KEY = "ANSWER_2";
-    final static String ANSWER_3_KEY = "ANSWER_3";
+    private final static String QUESTION_KEY = "QUESTION";
+    private final static String ANSWER_1_KEY = "ANSWER_1";
+    private final static String ANSWER_2_KEY = "ANSWER_2";
+    private final static String ANSWER_3_KEY = "ANSWER_3";
 
     private TextView questionTV;
     private RadioGroup radioGroup;
@@ -40,7 +38,7 @@ public class QuestionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.question_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_question, container, false);
     }
 
     @Override
