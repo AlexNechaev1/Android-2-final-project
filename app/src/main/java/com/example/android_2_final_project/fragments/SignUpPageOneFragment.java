@@ -31,6 +31,10 @@ public class SignUpPageOneFragment extends Fragment {
     private TextInputEditText mEmailTv;
     private TextInputEditText mUsernameTv;
 
+    final static String USERNAME_KEY = "USERNAME";
+    final static String PASSWORD_KEY = "PASSWORD";
+    final static String EMAIL_KEY = "EMAIL";
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,13 +75,13 @@ public class SignUpPageOneFragment extends Fragment {
 
                 if (!username.trim().isEmpty() && !email.trim().isEmpty() && !email.trim().isEmpty() && !password2.trim().isEmpty()) {
                     if (password1.equals(password2)) {
-                        Bundle args = new Bundle();
-                        args.putString("username", username);
-                        args.putString("password", password1);
-                        args.putString("email", email);
+                        Bundle bundle = new Bundle();
+                        bundle.putString(USERNAME_KEY, username);
+                        bundle.putString(PASSWORD_KEY, password1);
+                        bundle.putString(EMAIL_KEY, email);
 
                         //TODO: check if user exits: if false - Navigate. else- show error.
-                        Navigation.findNavController(v).navigate(R.id.action_signUpPageOneFragment_to_signUpPageTwoFragment, args);
+                        Navigation.findNavController(v).navigate(R.id.action_signUpPageOneFragment_to_signUpPageTwoFragment, bundle);
                     }
                     else {
                         //Password doesn't match
