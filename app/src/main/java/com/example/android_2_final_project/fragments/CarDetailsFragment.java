@@ -90,7 +90,7 @@ public class CarDetailsFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        mCarImage = view.findViewById(R.id.car_img);
+        mCarImage = view.findViewById(R.id.profile_picture_img);
         mCarModelTv = view.findViewById(R.id.car_model_tv);
         mManufactureYearTv = view.findViewById(R.id.manufacture_year_text_view);
         mDescriptionTv = view.findViewById(R.id.description_text_view);
