@@ -21,8 +21,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:scrollbarAlwaysDrawVerticalTrack="true"
-        app:layout_scrollFlags="scroll|enterAlways|snap"
+        android:visibility="gone"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-        app:menu="@menu/navigation_menu"/>
+        app:layout_scrollFlags="scroll|enterAlways|snap"
+        app:menu="@menu/navigation_menu" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
