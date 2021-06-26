@@ -56,8 +56,7 @@ public class ExploreFragment extends Fragment implements ExploreRecyclerViewAdap
             bundle.putSerializable("car", car); // TODO: make key static
 
             Navigation.findNavController(view).navigate(R.id.action_exploreFragment_to_carDetailsFragment, bundle);
-        }
-        else {
+        } else {
             // Navigate to loginFragment
             Navigation.findNavController(view).navigate(R.id.action_exploreFragment_to_loginPageFragment);
         }
@@ -83,13 +82,13 @@ public class ExploreFragment extends Fragment implements ExploreRecyclerViewAdap
         for (int i = 0; i < 9; i++) {
             exploreCarList.add(new Car(
                     "https://loremflickr.com/60" + i + "/500/car",
-                    "car model " + "199" + i,
+                    "car model",
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed suscipit libero. Quisque malesuada mattis augue in tempus. Morbi massa tortor, feugiat at pretium eget, maximus in elit. Aliquam id sagittis eros. Nam pretium vel tortor eu auctor. Nam orci nisl, facilisis sit amet elementum a, tincidunt vel risus. Etiam maximus in quam in commodo. Phasellus a justo sed nunc molestie egestas ac quis sem. Phasellus dignissim euismod suscipit. Nulla sit amet aliquam ante. Cras fermentum neque sed tincidunt bibendum.\n" +
                             "\n" +
                             "Sed interdum augue ut est laoreet commodo vehicula et felis. Pellentesque pharetra varius tortor, sed finibus odio egestas nec. Phasellus sagittis risus eget posuere tincidunt. Ut eros lacus, ultrices sit amet nulla non, feugiat congue ipsum. Curabitur dui orci, ultricies sed dui eu, finibus pulvinar neque. Maecenas sagittis mollis arcu, sit amet maximus felis varius vel. Praesent luctus lectus quis est elementum, eleifend commodo augue malesuada. Pellentesque sit amet sem dolor.\n" +
                             "\n" +
-                            "Vivamus sit amet est ut tortor porta congue at quis purus. Morbi mattis erat egestas, scelerisque lectus ut, ultricies sapien. Morbi imperdiet, enim sit amet ultricies mollis, lectus augue eleifend metus, in sodales erat massa et lacus. Proin purus massa, congue et eros congue, pellentesque facilisis elit. Nullam volutpat lectus et sapien scelerisque consequat. Fusce lobortis pharetra dolor, et gravida nisl malesuada at. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam lacinia nibh a dui venenatis, sit amet varius tellus efficitur. Quisque accumsan orci at eros eleifend gravida. In aliquam enim nec libero rhoncus euismod. Praesent risus tellus, dictum nec tortor a, congue interdum sem. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum faucibus, libero quis vehicula dignissim, risus diam ornare purus, ac vulputate dolor elit at ligula. In in ligula id nulla porta fringilla eget eu dui. Aliquam erat volutpat. Suspendisse potenti.",
-                    i
+                            "Vivamus sit amet est ut tortor porta congue at quis purus. Morbi mattis erat egestas, scelerisque lectus ut, ultricies sapien. Morbi imperdiet, enim sit amet ultricies mollis, lectus augue eleifend metus, in sodales erat massa et lacus. Proin purus massa, congue et eros congue, pellentesque facilisis elit. Nullam volutpat lectus et sapien scelerisque consequat. Fusce lobortis pharetra dolor, et gravida nisl malesuada at. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam lacinia nibh a dui venenatis, sit amet varius tellus efficitur. Quisque accumsan orci at eros eleifend gravida. In aliquam enim nec libero rhoncus euismod. Praesent risus tellus, dictum nec tortor a, congue interdum sem. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum faucibus, libero quis vehicula dignissim, risus diam ornare purus, ac vulputate dolor elit at ligula. In in ligula id nulla porta fringilla eget eu dui. Aliquam erat volutpat. Suspendisse potenti."
+                    ,Integer.parseInt("199"+i)
             ));
         }
     }
