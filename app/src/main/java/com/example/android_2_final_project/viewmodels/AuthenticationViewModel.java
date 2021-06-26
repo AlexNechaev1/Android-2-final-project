@@ -18,19 +18,22 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class AuthenticationViewModel extends ViewModel
-        implements FirebaseRepository.FireBaseRepositoryListener {
+        implements FirebaseRepository.FireBaseRepositoryListener{
 
     private final FirebaseRepository mFirebaseRepository;
 
     private final MutableLiveData<FirebaseUser> mUser = new MutableLiveData<>();
 
+    private final MutableLiveData<User> mRealtimeUser = new MutableLiveData<>();
+
     private AuthListener listener;
+
     public interface AuthListener {
+
         void OnCheckUserExists(boolean isExists);
-
         void OnQuestionsReceived(List<Question> questions);
-    }
 
+    }
     public void setListener(AuthListener listener) {
         this.listener = listener;
     }
@@ -82,5 +85,18 @@ public class AuthenticationViewModel extends ViewModel
     @Override
     public void OnQuestionsReceived(List<Question> questions) {
         listener.OnQuestionsReceived(questions);
+    }
+
+    @Override
+    public void OnRealtimeUserReceived(User user) {
+        mRealtimeUser.setValue(user);
+    }
+
+    public LiveData<User> getRealtimeUser(){
+        return mRealtimeUser;
+    }
+
+    public void getRealtimeUserFromDB() {
+        mFirebaseRepository.getRealtimeUser();
     }
 }
