@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/edit"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/profile_picture_img"
+            android:layout_width="130dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintDimensionRatio="1:1"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/profile_picture_edit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:src="@drawable/ic_edit"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_picture_img"
+            app:layout_constraintEnd_toEndOf="@+id/profile_picture_img" />
+
+        <TextView
+            android:id="@+id/profile_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Profile name"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_picture_img" />
+
+        <EditText
+            android:id="@+id/profile_name_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:enabled="false"
+            android:hint="username"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_name_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/profile_name_text_view"
+            app:layout_constraintTop_toTopOf="@+id/profile_name_text_view" />
+
+        <TextView
+            android:id="@+id/email_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:text="Email"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_name_text_view" />
+
+        <EditText
+            android:id="@+id/email_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="email"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/email_text_view"
+            app:layout_constraintEnd_toEndOf="@+id/profile_name_edit_text"
+            app:layout_constraintStart_toStartOf="@+id/profile_name_edit_text"
+            app:layout_constraintTop_toTopOf="@+id/email_text_view" />
+
+        <TextView
+            android:id="@+id/bio_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:text="Bio"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email_text_view" />
+
+        <EditText
+            android:id="@+id/bio_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="bio"
+            android:minLines="4"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/email_edit_text"
+            app:layout_constraintStart_toStartOf="@+id/email_edit_text"
+            app:layout_constraintTop_toTopOf="@+id/bio_text_view" />
+
+        <Button
+            android:id="@+id/switch_to_seller_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/white"
+            android:text="@string/switch_to_seller_profile"
+            android:textAllCaps="false"
+            android:textColor="#343f56"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bio_edit_text" />
+
+        <Button
+            android:id="@+id/change_password_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="@string/change_password"
+            android:textAllCaps="false"
+            android:textColor="#343f56"
+            app:layout_constraintEnd_toEndOf="@+id/switch_to_seller_btn"
+            app:layout_constraintStart_toStartOf="@+id/switch_to_seller_btn"
+            app:layout_constraintTop_toBottomOf="@+id/switch_to_seller_btn" />
+
+        <Button
+            android:id="@+id/sign_out_btn"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:backgroundTint="#f54748"
+            android:elevation="2dp"
+            android:stateListAnimator="@null"
+            android:text="@string/sign_out"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="@+id/change_password_btn"
+            app:layout_constraintStart_toStartOf="@+id/change_password_btn"
+            app:layout_constraintTop_toBottomOf="@+id/change_password_btn" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>
