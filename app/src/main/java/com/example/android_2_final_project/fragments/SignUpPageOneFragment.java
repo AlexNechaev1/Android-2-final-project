@@ -71,7 +71,7 @@ public class SignUpPageOneFragment extends Fragment {
                     String email = mEmailTv.getText().toString().trim();
                     String password = mPassword1Tv.getText().toString().trim();
 
-                    User newUser = new User(email, username, null);
+                    User newUser = new User(email, username, null,null);
 
 //                    Bundle bundle = new Bundle();
 //                    bundle.putSerializable(USER_KEY, newUser);
@@ -88,7 +88,7 @@ public class SignUpPageOneFragment extends Fragment {
                 String email = mEmailTv.getText().toString().trim();
                 String password = mPassword1Tv.getText().toString().trim();
 
-                User newUser = new User(email, username, null);
+                User newUser = new User(email, username, null,null);
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(USER_KEY, newUser);
