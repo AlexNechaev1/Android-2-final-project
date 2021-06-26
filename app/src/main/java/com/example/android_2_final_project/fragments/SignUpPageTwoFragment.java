@@ -124,9 +124,7 @@ public class SignUpPageTwoFragment extends Fragment
         String answerToInsert = answer != null ? answer : "";
 
         mAnswers[position] = answerToInsert;
-
-        for (String ans : mAnswers) {
-            Log.d("TAG", "OnAnswerSelected: " + ans);
-        }
+        if (position != mQuestions.size() - 1)
+            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1,true);
     }
 }
