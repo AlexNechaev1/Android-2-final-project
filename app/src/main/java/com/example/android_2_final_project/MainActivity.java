@@ -2,9 +2,16 @@ package com.example.android_2_final_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -20,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_menu);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -30,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
     }
+
 
     @Override
     protected void onStart() {
@@ -54,4 +65,30 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+            NavController navController = navHostFragment.getNavController();
+
+            switch(item.getItemId()){
+                case R.id.nav_explorer_page:
+                    Log.d("TAG", "onNavigationItemSelected: nav_explorer_page");
+                    return true;
+                case R.id.nav_chat_page:
+                    Log.d("TAG", "onNavigationItemSelected: nav_chat_page");
+                    return true;
+                case R.id.nav_notification_page:
+                    Log.d("TAG", "onNavigationItemSelected: nav_notification_page");
+                    return true;
+                case R.id.nav_profile_page:
+                    Log.d("TAG", "onNavigationItemSelected: nav_profile_page");
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    };
 }
