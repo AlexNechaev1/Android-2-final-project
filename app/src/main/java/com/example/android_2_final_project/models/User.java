@@ -12,14 +12,16 @@ public class User implements Serializable {
     private java.lang.String email;
     private java.lang.String username;
     private List<String> answers;
+    private String bio;
 
     public User() {
     }
 
-    public User(String email, String username, List<String> answers) {
+    public User(String email, String username, List<String> answers,String bio) {
         this.email = email;
         this.username = username;
         this.answers = answers;
+        this.bio = bio;
     }
 
     public String getEmail() {
@@ -44,5 +46,13 @@ public class User implements Serializable {
 
     public void setAnswers(List<String> answers) {
         this.answers = answers;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }
