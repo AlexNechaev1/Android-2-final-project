@@ -23,8 +23,7 @@
             app:enterAnim="@anim/enter_from_right"
             app:exitAnim="@anim/exit_to_left"
             app:popEnterAnim="@anim/enter_from_left"
-            app:popExitAnim="@anim/exit_to_right"
-            app:popUpToInclusive="false" />
+            app:popExitAnim="@anim/exit_to_right" />
     </fragment>
     <fragment
         android:id="@+id/loginPageFragment"
@@ -81,6 +80,21 @@
     </fragment>
     <fragment
         android:id="@+id/profilePageFragment"
+        tools:layout="@layout/fragment_profile_page"
         android:name="com.example.android_2_final_project.fragments.ProfilePageFragment"
         android:label="ProfilePageFragment" />
+    <fragment
+        android:id="@+id/userProfilePageFragment"
+        tools:layout="@layout/fragment_user_profile_page"
+        android:name="com.example.android_2_final_project.fragments.UserProfilePageFragment"
+        android:label="UserProfilePageFragment" >
+        <action
+            android:id="@+id/action_userProfilePageFragment_to_loginPageFragment"
+            app:destination="@id/loginPageFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right"
+            app:popUpTo="@id/loginPageFragment" />
+    </fragment>
 </navigation>
