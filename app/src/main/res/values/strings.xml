@@ -21,4 +21,9 @@
     <string name="empty_string">%1$d </string>
     <string name="missMatchPassword">Password doesn\'t match</string>
     <string name="password_length_error">Password must be greater or equal to 6</string>
+    <string name="switch_to_seller_profile">Switch to seller profile</string>
+    <string name="change_password">Change password</string>
+    <string name="sign_out">Sign out</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
 </resources>
