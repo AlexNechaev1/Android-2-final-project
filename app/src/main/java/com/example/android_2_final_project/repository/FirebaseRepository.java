@@ -31,6 +31,7 @@ public class FirebaseRepository {
     private FireBaseRepositoryListener listener;
 
     public interface FireBaseRepositoryListener {
+
         void OnSignInSuccessful(FirebaseUser user);
 
         void OnSignUpSuccessful(FirebaseUser firebaseUser, User user);
@@ -38,6 +39,8 @@ public class FirebaseRepository {
         void OnUserExists(boolean isExists);
 
         void OnQuestionsReceived(List<Question> questions);
+
+        void OnRealtimeUserReceived(User user);
     }
 
     @Inject
@@ -70,17 +73,17 @@ public class FirebaseRepository {
     private void signUpWithEmailAndPassword(User user, String password) {
         mFirebaseAuth.createUserWithEmailAndPassword(user.getEmail(), password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    if (task.getResult() != null) {
-                        if (listener != null) {
-                            listener.OnSignUpSuccessful(task.getResult().getUser(), user);
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            if (task.getResult() != null) {
+                                if (listener != null) {
+                                    listener.OnSignUpSuccessful(task.getResult().getUser(), user);
+                                }
+                            }
                         }
                     }
-                }
-            }
-        });
+                });
     }
 
     public void signUp(User user, String password) {
@@ -135,5 +138,22 @@ public class FirebaseRepository {
 
     public void setListener(FireBaseRepositoryListener listener) {
         this.listener = listener;
+    }
+
+    public void getRealtimeUser() {
+        mDatabase.child("users").child(mFirebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                if(listener != null){
+                    listener.OnRealtimeUserReceived(user);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
