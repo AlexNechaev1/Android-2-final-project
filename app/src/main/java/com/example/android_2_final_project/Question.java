@@ -5,15 +5,18 @@ import java.io.Serializable;
 public class Question implements Serializable {
 
     java.lang.String question;
-    java.lang.String answersOne;
-    java.lang.String answersTwo;
-    java.lang.String answersThree;
+    java.lang.String answer1;
+    java.lang.String answer2;
+    java.lang.String answer3;
 
-    public Question(String question, String answersOne, String answersTwo, String answersThree) {
+    public Question() {
+    }
+
+    public Question(String question, String answer1, String answer2, String answer3) {
         this.question = question;
-        this.answersOne = answersOne;
-        this.answersTwo = answersTwo;
-        this.answersThree = answersThree;
+        this.answer1 = answer1;
+        this.answer2 = answer2;
+        this.answer3 = answer3;
     }
 
     public String getQuestion() {
@@ -24,27 +27,37 @@ public class Question implements Serializable {
         this.question = question;
     }
 
-    public String getAnswersOne() {
-        return answersOne;
+    public String getAnswer1() {
+        return answer1;
     }
 
-    public void setAnswersOne(String answersOne) {
-        this.answersOne = answersOne;
+    public void setAnswer1(String answer1) {
+        this.answer1 = answer1;
     }
 
-    public String getAnswersTwo() {
-        return answersTwo;
+    public String getAnswer2() {
+        return answer2;
     }
 
-    public void setAnswersTwo(String answersTwo) {
-        this.answersTwo = answersTwo;
+    public void setAnswer2(String answer2) {
+        this.answer2 = answer2;
     }
 
-    public String getAnswersThree() {
-        return answersThree;
+    public String getAnswer3() {
+        return answer3;
     }
 
-    public void setAnswersThree(String answersThree) {
-        this.answersThree = answersThree;
+    public void setAnswer3(String answer3) {
+        this.answer3 = answer3;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "question='" + question + '\'' +
+                ", answers1='" + answer1 + '\'' +
+                ", answers2='" + answer2 + '\'' +
+                ", answers3='" + answer3 + '\'' +
+                '}';
     }
 }

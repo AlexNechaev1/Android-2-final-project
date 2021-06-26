@@ -4,18 +4,19 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @IgnoreExtraProperties
 public class User implements Serializable {
 
     private java.lang.String email;
     private java.lang.String username;
-    private ArrayList<String> answers;
+    private List<String> answers;
 
     public User() {
     }
 
-    public User(String email, String username, ArrayList<String> answers) {
+    public User(String email, String username, List<String> answers) {
         this.email = email;
         this.username = username;
         this.answers = answers;
@@ -37,11 +38,11 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public ArrayList<String> getAnswers() {
+    public List<String> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(ArrayList<String> answers) {
+    public void setAnswers(List<String> answers) {
         this.answers = answers;
     }
 }

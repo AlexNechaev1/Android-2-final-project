@@ -1,6 +1,7 @@
 package com.example.android_2_final_project.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +18,20 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.android_2_final_project.Question;
 import com.example.android_2_final_project.R;
 import com.example.android_2_final_project.adapters.PagerAdapter;
+import com.example.android_2_final_project.models.User;
 import com.example.android_2_final_project.viewmodels.AuthenticationViewModel;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class SignUpPageTwoFragment extends Fragment {
+public class SignUpPageTwoFragment extends Fragment
+        implements QuestionFragment.QuestionListener {
 
     private Button signUpPageTwoBtn;
     private static final java.lang.String FINISH = "finish";
@@ -36,6 +40,7 @@ public class SignUpPageTwoFragment extends Fragment {
     private ViewPager2 viewPager;
     private AuthenticationViewModel viewModel;
     private ArrayList<Question> mQuestions;
+    private String[] mAnswers;
 
     @Nullable
     @Override
@@ -56,29 +61,18 @@ public class SignUpPageTwoFragment extends Fragment {
             }
         });
 
-        viewModel.getQuestions().observe(getViewLifecycleOwner(), new Observer<ArrayList<Question>>() {
-            @Override
-            public void onChanged(ArrayList<Question> questions) {
-                mQuestions = questions;
-
-                pagerAdapter = new PagerAdapter(SignUpPageTwoFragment.this, mQuestions.size(), mQuestions);
-                viewPager.setAdapter(pagerAdapter);
-            }
-        });
-
         initViews(view);
         setListeners(view);
+
+        mQuestions = (ArrayList<Question>) requireArguments().getSerializable(SignUpPageOneFragment.QUESTIONS_KEY);
+        mAnswers = new String[mQuestions.size()];
+        Log.d("TAG", "onViewCreated: " + mQuestions.toString());
+
+        pagerAdapter = new PagerAdapter(SignUpPageTwoFragment.this, mQuestions.size(), mQuestions, this);
+        viewPager.setAdapter(pagerAdapter);
     }
 
     private void initViews(View view) {
-
-//        ArrayList<Question> questions = new ArrayList<>();
-//        questions.add(new Question("Hey", "Hey", "Hello", "Shalom"));
-//        questions.add(new Question("Bye", "Bye", "ByeBye", "Shalom"));
-//        questions.add(new Question("Car?", "Yes", "No", "Maybe"));
-//        questions.add(new Question("Hey", "Hey", "Hello", "Shalom"));
-//        questions.add(new Question("Bye", "Bye", "ByeBye", "Shalom"));
-
         viewPager = view.findViewById(R.id.pager);
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -111,16 +105,28 @@ public class SignUpPageTwoFragment extends Fragment {
                         viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
                         break;
                     case FINISH:
-                        String username = getArguments().getString(SignUpPageOneFragment.USER_KEY, "");
-                        String password = getArguments().getString(SignUpPageOneFragment.PASSWORD_KEY, "");
-                        String email = getArguments().getString(SignUpPageOneFragment.EMAIL_KEY, "");
+                        User user = (User) requireArguments().getSerializable(SignUpPageOneFragment.USER_KEY);
+                        String password = (String) requireArguments().getSerializable(SignUpPageOneFragment.PASSWORD_KEY);
+                        user.setAnswers(Arrays.asList(mAnswers));
 
-                        viewModel.signUp(email, password);
-                        //TODO: create user in Realtime Database
+                        viewModel.signUp(user, password);
                         // TODO: maybe show spinner while registering user
                         break;
                 }
             }
         });
+    }
+
+    @Override
+    public void OnAnswerSelected(String answer) {
+        int position = viewPager.getCurrentItem();
+
+        String answerToInsert = answer != null ? answer : "";
+
+        mAnswers[position] = answerToInsert;
+
+        for (String ans : mAnswers) {
+            Log.d("TAG", "OnAnswerSelected: " + ans);
+        }
     }
 }

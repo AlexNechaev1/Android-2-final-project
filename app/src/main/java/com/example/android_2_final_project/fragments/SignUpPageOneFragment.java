@@ -12,12 +12,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.example.android_2_final_project.Question;
 import com.example.android_2_final_project.R;
 import com.example.android_2_final_project.models.User;
 import com.example.android_2_final_project.viewmodels.AuthenticationViewModel;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -35,6 +39,7 @@ public class SignUpPageOneFragment extends Fragment {
     final static String USER_KEY = "USERNAME";
     final static String PASSWORD_KEY = "PASSWORD";
     final static String EMAIL_KEY = "EMAIL";
+    final static String QUESTIONS_KEY = "QUESTIONS";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,12 +73,29 @@ public class SignUpPageOneFragment extends Fragment {
 
                     User newUser = new User(email, username, null);
 
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(USER_KEY, newUser);
-                    bundle.putString(PASSWORD_KEY, password);
-
-                    Navigation.findNavController(view).navigate(R.id.action_signUpPageOneFragment_to_signUpPageTwoFragment, bundle);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable(USER_KEY, newUser);
+//                    bundle.putString(PASSWORD_KEY, password);
+//
+//                    Navigation.findNavController(view).navigate(R.id.action_signUpPageOneFragment_to_signUpPageTwoFragment, bundle);
+                    viewModel.getQuestions();
                 }
+            }
+
+            @Override
+            public void OnQuestionsReceived(List<Question> questions) {
+                String username = mUsernameTv.getText().toString().trim();
+                String email = mEmailTv.getText().toString().trim();
+                String password = mPassword1Tv.getText().toString().trim();
+
+                User newUser = new User(email, username, null);
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(USER_KEY, newUser);
+                bundle.putSerializable(QUESTIONS_KEY, new ArrayList<>(questions));
+                bundle.putString(PASSWORD_KEY, password);
+
+                Navigation.findNavController(view).navigate(R.id.action_signUpPageOneFragment_to_signUpPageTwoFragment, bundle);
             }
         });
     }

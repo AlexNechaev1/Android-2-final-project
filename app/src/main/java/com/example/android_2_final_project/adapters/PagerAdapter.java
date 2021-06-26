@@ -14,18 +14,24 @@ public class PagerAdapter extends FragmentStateAdapter {
 
     private final int numOfTabs;
     private final ArrayList<Question> questions;
+    private QuestionFragment.QuestionListener listener;
 
-    public PagerAdapter(@NonNull Fragment fragment, int numOfTabs, ArrayList<Question> questions) {
+    public PagerAdapter(@NonNull Fragment fragment,
+                        int numOfTabs,
+                        ArrayList<Question> questions,
+                        QuestionFragment.QuestionListener listener) {
         super(fragment);
         this.numOfTabs = numOfTabs;
         this.questions = questions;
+        this.listener = listener;
     }
-
 
     @NonNull
     @Override
     public Fragment createFragment(int i) {
-        return QuestionFragment.newInstance(questions.get(i));
+        QuestionFragment instance = QuestionFragment.newInstance(questions.get(i));
+        instance.setListener(listener);
+        return instance;
     }
 
     @Override
