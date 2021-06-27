@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.android_2_final_project.R;
 
-public class ProfilePageFragment extends Fragment {
+public class SellerPageFragment extends Fragment {
 
 
     @Override

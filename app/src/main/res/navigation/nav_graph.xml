@@ -81,7 +81,7 @@
     <fragment
         android:id="@+id/profilePageFragment"
         tools:layout="@layout/fragment_profile_page"
-        android:name="com.example.android_2_final_project.fragments.ProfilePageFragment"
+        android:name="com.example.android_2_final_project.fragments.SellerPageFragment"
         android:label="ProfilePageFragment" />
     <fragment
         android:id="@+id/userProfilePageFragment"
@@ -95,6 +95,6 @@
             app:exitAnim="@anim/exit_to_left"
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/exit_to_right"
-            app:popUpTo="@id/loginPageFragment" />
+            app:popUpTo="@id/userProfilePageFragment" />
     </fragment>
 </navigation>

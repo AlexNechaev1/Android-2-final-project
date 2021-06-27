@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/transparent"
             android:src="@drawable/ic_edit"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/profile_picture_img"
             app:layout_constraintEnd_toEndOf="@+id/profile_picture_img" />
 

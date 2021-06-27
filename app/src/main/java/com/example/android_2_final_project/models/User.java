@@ -9,8 +9,8 @@ import java.util.List;
 @IgnoreExtraProperties
 public class User implements Serializable {
 
-    private java.lang.String email;
-    private java.lang.String username;
+    private String email;
+    private String username;
     private List<String> answers;
     private String bio;
 

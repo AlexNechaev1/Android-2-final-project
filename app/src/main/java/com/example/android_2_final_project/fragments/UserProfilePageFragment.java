@@ -1,6 +1,11 @@
 package com.example.android_2_final_project.fragments;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +14,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -20,8 +27,14 @@ import com.example.android_2_final_project.models.User;
 import com.example.android_2_final_project.viewmodels.AuthenticationViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 public class UserProfilePageFragment extends Fragment {
 
+    private static final int PICK_IMAGE_REQUEST = 001;
+    private static final int RESULT_OK = 010;
+    private static final int PICK_PHOTO_FOR_AVATAR = 002;
     Button mEditChangesBtn;
     ImageButton mProfileUserPictureEditBtn;
     Button mSwitchToSellerBtn;
@@ -33,6 +46,8 @@ public class UserProfilePageFragment extends Fragment {
     EditText mBioEt;
 
     User mUser;
+
+    private String mFilePath;
 
 
     AuthenticationViewModel viewModel;
@@ -59,10 +74,9 @@ public class UserProfilePageFragment extends Fragment {
 //            }
 //        });
 
+
         mUser = viewModel.getRealtimeUser().getValue();
         populateView();
-
-        viewModel.getRealtimeUserFromDB();
     }
 
     private void initViews(View view) {
@@ -92,8 +106,11 @@ public class UserProfilePageFragment extends Fragment {
         mProfileUserPictureEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TAG", "onClick: ");
-                //TODO take picture from gallery or camera
+                Intent intent = new Intent();
+                intent.setAction(android.content.Intent.ACTION_VIEW);
+                intent.setType("image/*");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
         mSwitchToSellerBtn.setOnClickListener(new View.OnClickListener() {
@@ -112,11 +129,33 @@ public class UserProfilePageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Navigation.findNavController(v).navigate(R.id.action_userProfilePageFragment_to_loginPageFragment);
+                Navigation.findNavController(v).popBackStack();
             }
         });
 
     }
+
+    @Override
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+
+
+        if (resultCode == RESULT_OK) {
+            try {
+                final Uri imageUri = data.getData();
+                final InputStream imageStream = requireActivity().getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+
+            }
+
+        }else {
+
+        }
+    }
+
 
     private void changeEditState(boolean isEditEnabled) {
         if (isEditEnabled) {
@@ -125,7 +164,8 @@ public class UserProfilePageFragment extends Fragment {
             mBioEt.setEnabled(true);
             mProfileUserPictureEditBtn.setVisibility(View.VISIBLE);
             mEditChangesBtn.setText(getResources().getString(R.string.save));
-        } else {
+        }
+        else {
             //TODO collect the data from all field and override the existing on in the database
             mUsernameEt.setEnabled(false);
             mEmailEt.setEnabled(false);
@@ -136,8 +176,17 @@ public class UserProfilePageFragment extends Fragment {
     }
 
     private void saveUser() {
+        String username = mUsernameEt.getText().toString().trim();
+        String email = mEmailEt.getText().toString().trim();
+        String bio = mBioEt.getText().toString().trim();
 
+        mUser.setUsername(username);
+        mUser.setEmail(email);
+        mUser.setBio(bio);
+
+        viewModel.saveUser(mUser);
     }
+
 
     private void populateView() {
         //TODO add setImg

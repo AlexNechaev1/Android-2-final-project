@@ -4,10 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.android_2_final_project.viewmodels.AuthenticationViewModel;
@@ -35,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
 
+        bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+
+            }
+        });
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -43,8 +53,13 @@ public class MainActivity extends AppCompatActivity {
                 if (user != null) {
                     bottomNavigationView.setVisibility(View.VISIBLE);
                     viewModel.getRealtimeUserFromDB();
+
                 }else{
+                    // TODO something
+//                    viewModel.onSignOut();
                     bottomNavigationView.setVisibility(View.GONE);
+//                    navController.popBackStack();
+//                    navController.navigate(R.id.loginPageFragment);
                 }
             }
         };
