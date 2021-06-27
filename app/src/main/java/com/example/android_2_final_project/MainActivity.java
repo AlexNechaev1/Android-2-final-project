@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }else{
                     // TODO something
-//                    viewModel.onSignOut();
+                    viewModel.onSignOut();
                     bottomNavigationView.setVisibility(View.GONE);
 //                    navController.popBackStack();
 //                    navController.navigate(R.id.loginPageFragment);
