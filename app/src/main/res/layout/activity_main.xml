@@ -22,7 +22,7 @@
         android:layout_gravity="bottom"
         android:elevation="1dp"
         android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:layout_scrollFlags="scroll|enterAlways|snap"
         app:menu="@menu/navigation_menu" />
@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:src="@drawable/car"
+        android:visibility="gone"
         app:elevation="8dp"
         app:layout_anchor="@id/nav_menu"
         app:layout_anchorGravity="center_horizontal"
