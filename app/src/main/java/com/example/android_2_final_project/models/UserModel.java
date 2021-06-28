@@ -14,16 +14,31 @@ public class User implements Serializable {
     private List<String> answers;
     private String bio;
     private String profileImage;
+    private List<String> following;
 
     public User() {
     }
 
-    public User(String email, String username, List<String> answers,String bio, String profileImage) {
+    public User(String email,
+                String username,
+                List<String> answers,
+                String bio,
+                String profileImage,
+                List<String> following) {
         this.email = email;
         this.username = username;
         this.answers = answers;
         this.bio = bio;
         this.profileImage = profileImage;
+        this.following = following;
+    }
+
+    public List<String> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<String> following) {
+        this.following = following;
     }
 
     public String getProfileImage() {
