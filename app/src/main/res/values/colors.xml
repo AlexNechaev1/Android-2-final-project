@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#f54748</color>
+    <color name="taxi_yellow">#fdb813</color>
+    <color name="taxi_yellow_bright">#FFD265</color>
 </resources>
