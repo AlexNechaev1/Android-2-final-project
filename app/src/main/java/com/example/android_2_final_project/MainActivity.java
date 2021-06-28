@@ -63,10 +63,12 @@ public class MainActivity extends AppCompatActivity {
 
                 if (user != null) {
                     bottomNavigationView.setVisibility(View.VISIBLE);
+                    addPostFab.setVisibility(View.VISIBLE);
                     viewModel.getRealtimeUserFromDB();
                 } else {
                     viewModel.onSignOut();
                     bottomNavigationView.setVisibility(View.GONE);
+                    addPostFab.setVisibility(View.GONE);
                 }
             }
         };
