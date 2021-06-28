@@ -5,12 +5,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.android_2_final_project.Question;
-import com.example.android_2_final_project.models.User;
+import com.example.android_2_final_project.models.UserModel;
 import com.example.android_2_final_project.repository.FirebaseRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,7 +24,7 @@ public class AuthenticationViewModel extends ViewModel
 
     private final MutableLiveData<FirebaseUser> mUser = new MutableLiveData<>();
 
-    private final MutableLiveData<User> mRealtimeUser = new MutableLiveData<>();
+    private final MutableLiveData<UserModel> mRealtimeUser = new MutableLiveData<>();
 
     private AuthListener listener;
 
@@ -36,8 +35,6 @@ public class AuthenticationViewModel extends ViewModel
         void OnQuestionsReceived(List<Question> questions);
 
     }
-
-
 
     public void setListener(AuthListener listener) {
         this.listener = listener;
@@ -62,7 +59,7 @@ public class AuthenticationViewModel extends ViewModel
         mFirebaseRepository.emailPasswordSignIn(email, password);
     }
 
-    public void signUp(User user, java.lang.String password) {
+    public void signUp(UserModel user, java.lang.String password) {
         mFirebaseRepository.signUp(user, password);
     }
 
@@ -76,7 +73,7 @@ public class AuthenticationViewModel extends ViewModel
     }
 
     @Override
-    public void OnSignUpSuccessful(User user) {
+    public void OnSignUpSuccessful(UserModel user) {
         mUser.setValue(FirebaseAuth.getInstance().getCurrentUser());
         mFirebaseRepository.registerUserInRealtime(user);
     }
@@ -92,7 +89,7 @@ public class AuthenticationViewModel extends ViewModel
     }
 
     @Override
-    public void OnRealtimeUserReceived(User user) {
+    public void OnRealtimeUserReceived(UserModel user) {
         mRealtimeUser.setValue(user);
     }
 
@@ -101,8 +98,13 @@ public class AuthenticationViewModel extends ViewModel
         FirebaseAuth.getInstance().signOut();
     }
 
-    public LiveData<User> getRealtimeUser() {
+    public LiveData<UserModel> getRealtimeUser() {
         return mRealtimeUser;
+    }
+
+    public void saveRealTimeUser(UserModel user) {
+        mRealtimeUser.setValue(user);
+        mFirebaseRepository.saveUser(user);
     }
 
 
@@ -110,17 +112,12 @@ public class AuthenticationViewModel extends ViewModel
         mFirebaseRepository.getRealtimeUser();
     }
 
-    public void saveUser(User user) {
+    public void saveUser(UserModel user) {
         mUser.setValue(null);
         mFirebaseRepository.saveUser(user);
     }
 
     public void onSignOut() {
         mUser.setValue(null);
-        // consider nulling out the realtime info of the user...
     }
-
-//    public void updateUserPicture(picture){
-//        mFirebaseRepository.updateUserPicture(picture);
-//    }
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @IgnoreExtraProperties
-public class User implements Serializable {
+public class UserModel implements Serializable {
 
     private String email;
     private String username;
@@ -16,15 +16,15 @@ public class User implements Serializable {
     private String profileImage;
     private List<String> following;
 
-    public User() {
+    public UserModel() {
     }
 
-    public User(String email,
-                String username,
-                List<String> answers,
-                String bio,
-                String profileImage,
-                List<String> following) {
+    public UserModel(String email,
+                     String username,
+                     List<String> answers,
+                     String bio,
+                     String profileImage,
+                     List<String> following) {
         this.email = email;
         this.username = username;
         this.answers = answers;

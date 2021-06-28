@@ -26,13 +26,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
 import com.example.android_2_final_project.R;
-import com.example.android_2_final_project.models.User;
+import com.example.android_2_final_project.models.UserModel;
 import com.example.android_2_final_project.viewmodels.AuthenticationViewModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -73,15 +72,15 @@ public class UserProfilePageFragment extends Fragment {
     private EditText mEmailEt;
     private EditText mBioEt;
 
-    private User mUser;
+    private UserModel mUser;
     private Uri imageUri;
 
+    ActivityResultLauncher<String> mRequestPermissionLauncher;
 
     Uri uri;
     File photoFile;
 
     AuthenticationViewModel viewModel;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -99,23 +98,29 @@ public class UserProfilePageFragment extends Fragment {
         BottomSheetBehavior mBottomSheetBehavior = BottomSheetBehavior.from(mBottomSheet);
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
-
+        initRequestLaunchers();
         initViews(view);
         setListeners(view);
 
         viewModel = new ViewModelProvider(requireActivity()).get(AuthenticationViewModel.class);
 
-//        viewModel.getRealtimeUser().observe(getViewLifecycleOwner(), new Observer<User>() {
-//            @Override
-//            public void onChanged(User user) {
-//                mUser = user;
-//                populateView(user);
-//            }
-//        });
-
-
         mUser = viewModel.getRealtimeUser().getValue();
         populateView();
+    }
+
+    private void initRequestLaunchers() {
+        mRequestPermissionLauncher =
+                registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+                    @Override
+                    public void onActivityResult(Boolean isGranted) {
+                        if (isGranted) {
+                            pickImageFromGallery();
+                        }
+                        else {
+                            Toast.makeText(getContext(), "Need permission to add image", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     private void initViews(View view) {
@@ -148,41 +153,28 @@ public class UserProfilePageFragment extends Fragment {
                 }
             }
         });
+
         mProfileUserPictureEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (Build.VERSION.SDK_INT >= 23) {
-                    int hasWritePermission = requireActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-                    if (hasWritePermission != PackageManager.PERMISSION_GRANTED) {
-                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_PERMISSION_REQUEST);
-                    }
-                }
-
-//                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 showBottomSheetDialog();
-
-
-//                Intent intent = new Intent();
-//                intent.setAction(android.content.Intent.ACTION_VIEW);
-//                intent.setType("image/*");
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
             }
         });
+
         mSwitchToSellerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Navigate to marketing page - upgrade to seller profile
             }
         });
+
         mChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Navigate to change password page
             }
         });
+
         mSignOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,7 +182,6 @@ public class UserProfilePageFragment extends Fragment {
                 Navigation.findNavController(v).popBackStack();
             }
         });
-
     }
 
     private void uploadImageToFirebase(Uri uri){
@@ -211,7 +202,7 @@ public class UserProfilePageFragment extends Fragment {
                                                           @Override
                                                           public void onSuccess(Uri uri) {
 
-                                                              User user = viewModel.getRealtimeUser().getValue();
+                                                              UserModel user = viewModel.getRealtimeUser().getValue();
                                                               user.setProfileImage(uri.toString());
                                                               // save in real time
                                                               FirebaseDatabase
@@ -240,9 +231,9 @@ public class UserProfilePageFragment extends Fragment {
     });
 
     private void showBottomSheetDialog() {
-
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
         bottomSheetDialog.setContentView(R.layout.bottom_sheet);
+
         Button userCameraBtn = bottomSheetDialog.findViewById(R.id.use_camera_btn);
         userCameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,7 +242,8 @@ public class UserProfilePageFragment extends Fragment {
                     photoFile = File.createTempFile(
                             "IMG_",
                             ".jpg",
-                            requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES));
+                            requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+                    );
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -261,6 +253,7 @@ public class UserProfilePageFragment extends Fragment {
                 takePicture.launch(uri);
             }
         });
+
         Button galleryBtn = bottomSheetDialog.findViewById(R.id.choose_from_gallery_btn);
         galleryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -294,20 +287,7 @@ public class UserProfilePageFragment extends Fragment {
     }
 
     private void startPermissionRequest(String manifest) {
-        ActivityResultLauncher<String> requestPermissionLauncher =
-                registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
-                    @Override
-                    public void onActivityResult(Boolean isGranted) {
-                        if (isGranted) {
-                            pickImageFromGallery();
-                        }
-                        else {
-                            Toast.makeText(getContext(), "Need permission to add image", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-        requestPermissionLauncher.launch(manifest);
+        mRequestPermissionLauncher.launch(manifest);
     }
 
     @Override
@@ -315,13 +295,11 @@ public class UserProfilePageFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == GALLERY_REQUEST && resultCode == Activity.RESULT_OK) {
-
             if (data != null) {
                 imageUri = data.getData();
                 Glide.with(this).load(imageUri).into(mProfileIv);
                 uploadImageToFirebase(imageUri);
             }
-
         }
     }
 
@@ -331,7 +309,6 @@ public class UserProfilePageFragment extends Fragment {
             mUsernameEt.setEnabled(true);
             mEmailEt.setEnabled(true);
             mBioEt.setEnabled(true);
-            mProfileUserPictureEditBtn.setVisibility(View.VISIBLE);
             mEditChangesBtn.setText(getResources().getString(R.string.save));
         }
         else {
@@ -339,7 +316,6 @@ public class UserProfilePageFragment extends Fragment {
             mUsernameEt.setEnabled(false);
             mEmailEt.setEnabled(false);
             mBioEt.setEnabled(false);
-            mProfileUserPictureEditBtn.setVisibility(View.GONE);
             mEditChangesBtn.setText(getResources().getString(R.string.edit));
         }
     }

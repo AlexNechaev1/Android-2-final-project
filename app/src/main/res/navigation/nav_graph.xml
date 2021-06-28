@@ -44,8 +44,8 @@
         android:label="CarDetailsFragment"
         tools:layout="@layout/fragment_car_details_page">
         <argument
-            android:name="car"
-            app:argType="com.example.android_2_final_project.models.Car" />
+            android:name="post"
+            app:argType="com.example.android_2_final_project.models.PostModel" />
         <action
             android:id="@+id/action_carDetailsFragment_to_profilePageFragment"
             app:destination="@+id/profilePageFragment"

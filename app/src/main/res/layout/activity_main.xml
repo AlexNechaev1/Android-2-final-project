@@ -15,17 +15,27 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
-        android:visibility="gone"
         android:elevation="1dp"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:visibility="visible"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:layout_scrollFlags="scroll|enterAlways|snap"
         app:menu="@menu/navigation_menu" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_post_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/car"
+        app:elevation="8dp"
+        app:layout_anchor="@id/nav_menu"
+        app:layout_anchorGravity="center_horizontal"
+        app:maxImageSize="35dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,7 +2,6 @@ package com.example.android_2_final_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -11,16 +10,15 @@ import androidx.navigation.ui.NavigationUI;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
+import com.example.android_2_final_project.fragments.AddPostDialogFragment;
 import com.example.android_2_final_project.viewmodels.AuthenticationViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -38,10 +36,18 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(AuthenticationViewModel.class);
 
+        FloatingActionButton addPostFab = findViewById(R.id.add_post_fab);
+        addPostFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAddPostDialog();
+            }
+        });
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_menu);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         NavController navController = navHostFragment.getNavController();
-        NavigationUI.setupWithNavController(bottomNavigationView,navController);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
         bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
             @Override
@@ -58,16 +64,18 @@ public class MainActivity extends AppCompatActivity {
                 if (user != null) {
                     bottomNavigationView.setVisibility(View.VISIBLE);
                     viewModel.getRealtimeUserFromDB();
-
-                }else{
-                    // TODO something
+                } else {
                     viewModel.onSignOut();
                     bottomNavigationView.setVisibility(View.GONE);
-//                    navController.popBackStack();
-//                    navController.navigate(R.id.loginPageFragment);
                 }
             }
         };
+    }
+
+    private void showAddPostDialog() {
+        AddPostDialogFragment dialogFragment = new AddPostDialogFragment();
+
+        dialogFragment.show(getSupportFragmentManager(), null);
     }
 
 
@@ -81,11 +89,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
-        //TODO remove in production - test only!!!
-//        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-//            FirebaseAuth.getInstance().signOut();
-//        }
 
         FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
     }

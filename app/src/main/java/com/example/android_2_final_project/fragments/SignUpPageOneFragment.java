@@ -14,7 +14,7 @@ import androidx.navigation.Navigation;
 
 import com.example.android_2_final_project.Question;
 import com.example.android_2_final_project.R;
-import com.example.android_2_final_project.models.User;
+import com.example.android_2_final_project.models.UserModel;
 import com.example.android_2_final_project.viewmodels.AuthenticationViewModel;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -67,17 +67,6 @@ public class SignUpPageOneFragment extends Fragment {
                 if (isExists) {
                     Snackbar.make(view, "Email already exists", BaseTransientBottomBar.LENGTH_LONG).show();
                 } else {
-                    String username = mUsernameTv.getText().toString().trim();
-                    String email = mEmailTv.getText().toString().trim();
-                    String password = mPassword1Tv.getText().toString().trim();
-
-                    User newUser = new User(email, username, null,null, null);
-
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable(USER_KEY, newUser);
-//                    bundle.putString(PASSWORD_KEY, password);
-//
-//                    Navigation.findNavController(view).navigate(R.id.action_signUpPageOneFragment_to_signUpPageTwoFragment, bundle);
                     viewModel.getQuestions();
                 }
             }
@@ -88,7 +77,7 @@ public class SignUpPageOneFragment extends Fragment {
                 String email = mEmailTv.getText().toString().trim();
                 String password = mPassword1Tv.getText().toString().trim();
 
-                User newUser = new User(email, username, null,null, null);
+                UserModel newUser = new UserModel(email, username, null,null, null, null);
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(USER_KEY, newUser);

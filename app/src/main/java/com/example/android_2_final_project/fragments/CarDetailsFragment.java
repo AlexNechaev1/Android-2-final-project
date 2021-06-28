@@ -17,16 +17,24 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.bumptech.glide.Glide;
 import com.example.android_2_final_project.R;
-import com.example.android_2_final_project.models.Car;
+import com.example.android_2_final_project.models.PostModel;
+import com.example.android_2_final_project.viewmodels.AuthenticationViewModel;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+import static com.example.android_2_final_project.fragments.ExploreFragment.POSTS_KEY;
+
+@AndroidEntryPoint
 public class CarDetailsFragment extends Fragment {
 
     private Button mFollowCar;
@@ -40,6 +48,10 @@ public class CarDetailsFragment extends Fragment {
 
     private AppBarLayout appBarLayout;
 
+    private DatabaseReference mDatabase;
+
+    private AuthenticationViewModel viewModel;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +62,10 @@ public class CarDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        viewModel = new ViewModelProvider(this).get(AuthenticationViewModel.class);
+
         setHasOptionsMenu(true);
         initViews(view);
         initListeners();
@@ -57,16 +73,15 @@ public class CarDetailsFragment extends Fragment {
     }
 
     private void populateViews() {
-        Car car = (Car) requireArguments().getSerializable("car");
+        PostModel post = (PostModel) requireArguments().getSerializable(POSTS_KEY);
 
-        Glide.with(this).load(car.getImagePath()).into(mCarImage);
-        mCarModelTv.setText(car.getCarModel());
-        mManufactureYearTv.setText(getString(R.string.empty_string, car.getManufactureYear()));
-        mDescriptionTv.setText(car.getDescription());
+        Glide.with(this).load(post.getCar().getImagePath()).into(mCarImage);
+        mCarModelTv.setText(post.getCar().getCarModel());
+        mManufactureYearTv.setText(getString(R.string.empty_string, post.getCar().getManufactureYear()));
+        mDescriptionTv.setText(post.getCar().getDescription());
     }
 
     private void initListeners() {
-
         mFollowCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +101,6 @@ public class CarDetailsFragment extends Fragment {
                 //TODO: transition to fragment to show full scale car image
             }
         });
-
     }
 
     private void initViews(View view) {
@@ -106,31 +120,23 @@ public class CarDetailsFragment extends Fragment {
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (verticalOffset == 0)
-                {
+                if (verticalOffset == 0) {
                     Log.d("markomarko", "onOffsetChanged: full expanded");
-                }
-                else
-                {
+                } else {
                     Log.d("markomarko", "onOffsetChanged: Not fully expanded or collapsed");
                 }
             }
         });
-
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_car_detail,menu);
         super.onCreateOptionsMenu(menu, inflater);
-
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         switch (item.getItemId()){
             case R.id.action_go_to_seller:
                 NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
@@ -139,14 +145,14 @@ public class CarDetailsFragment extends Fragment {
                 break;
             case R.id.action_follow:
                 // add current post to user's saved posts.
+                addFollowerToUser();
                 break;
         }
-
-//        Log.d("markomarko", "onOptionsItemSelected: " + title);
 
         return super.onOptionsItemSelected(item);
     }
 
-
-
+    private void addFollowerToUser() {
+        Log.d("TAG", "addFollowerToUser: ");
+    }
 }
