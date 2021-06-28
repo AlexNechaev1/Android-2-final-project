@@ -13,15 +13,25 @@ public class User implements Serializable {
     private String username;
     private List<String> answers;
     private String bio;
+    private String profileImage;
 
     public User() {
     }
 
-    public User(String email, String username, List<String> answers,String bio) {
+    public User(String email, String username, List<String> answers,String bio, String profileImage) {
         this.email = email;
         this.username = username;
         this.answers = answers;
         this.bio = bio;
+        this.profileImage = profileImage;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     public String getEmail() {
