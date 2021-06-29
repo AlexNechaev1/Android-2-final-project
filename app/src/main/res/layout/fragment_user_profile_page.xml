@@ -33,7 +33,7 @@
 
         <ImageView
             android:id="@+id/profile_picture_img"
-            android:layout_width="130dp"
+            android:layout_width="115dp"
             android:layout_height="0dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
@@ -45,8 +45,9 @@
 
         <ImageButton
             android:id="@+id/profile_picture_edit_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"
             android:backgroundTint="@android:color/transparent"
             android:src="@drawable/ic_edit"
             android:visibility="visible"
@@ -58,9 +59,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="Profile name"
-            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:text="@string/profile_name"
+            android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_picture_img" />
@@ -69,27 +70,25 @@
             android:id="@+id/profile_name_edit_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:enabled="false"
             android:hint="username"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_name_text_view"
+
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profile_name_text_view"
-            app:layout_constraintTop_toTopOf="@+id/profile_name_text_view" />
+            app:layout_constraintStart_toStartOf="@+id/profile_name_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/profile_name_text_view" />
 
         <TextView
             android:id="@+id/email_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            android:text="Email"
-            android:textSize="20sp"
+            android:text="@string/email"
+            android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_name_text_view" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_name_edit_text" />
 
         <EditText
             android:id="@+id/email_edit_text"
@@ -98,22 +97,21 @@
             android:enabled="false"
             android:hint="email"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/email_text_view"
+
             app:layout_constraintEnd_toEndOf="@+id/profile_name_edit_text"
-            app:layout_constraintStart_toStartOf="@+id/profile_name_edit_text"
-            app:layout_constraintTop_toTopOf="@+id/email_text_view" />
+            app:layout_constraintStart_toStartOf="@+id/email_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/email_text_view" />
 
         <TextView
             android:id="@+id/bio_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            android:text="Bio"
-            android:textSize="20sp"
+            android:text="@string/bio"
+            android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email_text_view" />
+            app:layout_constraintTop_toBottomOf="@+id/email_edit_text" />
 
         <EditText
             android:id="@+id/bio_edit_text"
@@ -121,11 +119,12 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:hint="bio"
-            android:minLines="4"
+            android:minLines="1"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/email_edit_text"
-            app:layout_constraintStart_toStartOf="@+id/email_edit_text"
-            app:layout_constraintTop_toTopOf="@+id/bio_text_view" />
+
+            app:layout_constraintStart_toStartOf="@+id/bio_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/bio_text_view" />
 
         <Button
             android:id="@+id/switch_to_seller_btn"
@@ -134,7 +133,7 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="30dp"
             android:backgroundTint="@color/white"
-            android:text="@string/switch_to_seller_profile"
+            android:text="@string/switch_to_prime_profile"
             android:textAllCaps="false"
             android:textColor="#343f56"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android-2-final-project</string>
+    <string name="app_name">AutoMarket</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -21,14 +21,16 @@
     <string name="empty_string">%1$d </string>
     <string name="missMatchPassword">Password doesn\'t match</string>
     <string name="password_length_error">Password must be greater or equal to 6</string>
-    <string name="switch_to_seller_profile">Switch to seller profile</string>
+    <string name="switch_to_prime_profile">Switch to prime</string>
     <string name="change_password">Change password</string>
     <string name="sign_out">Sign out</string>
     <string name="edit">Edit</string>
     <string name="save">Save</string>
     <string name="post">Post</string>
     <string name="car_model">Car model:</string>
-    <string name="manufactire_year">Manufactire year:</string>
+    <string name="manufacture_year">Manufacture year:</string>
     <string name="description">Description:</string>
     <string name="message_to_seller">message to seller</string>
+    <string name="bio">Bio</string>
+    <string name="profile_name">Profile name</string>
 </resources>

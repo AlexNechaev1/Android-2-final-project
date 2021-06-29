@@ -65,7 +65,6 @@ public class SignUpPageTwoFragment extends Fragment
 
         mQuestions = (ArrayList<Question>) requireArguments().getSerializable(SignUpPageOneFragment.QUESTIONS_KEY);
         mAnswers = new String[mQuestions.size()];
-        Log.d("TAG", "onViewCreated: " + mQuestions.toString());
 
         pagerAdapter = new PagerAdapter(SignUpPageTwoFragment.this, mQuestions.size(), mQuestions, this);
         viewPager.setAdapter(pagerAdapter);

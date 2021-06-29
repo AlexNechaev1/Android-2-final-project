@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.example.android_2_final_project.fragments.AddPostDialogFragment;
 import com.example.android_2_final_project.fragments.ChatFragment;
+import com.example.android_2_final_project.fragments.UserProfilePageFragment;
 import com.example.android_2_final_project.viewmodels.AuthenticationViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -24,7 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MainActivity extends AppCompatActivity implements ChatFragment.ChatFragmentListener {
+public class MainActivity extends AppCompatActivity implements ChatFragment.ChatFragmentListener, UserProfilePageFragment.UserProfileFragmentListener {
 
     private FirebaseAuth.AuthStateListener mAuthListener;
     private AuthenticationViewModel viewModel;
@@ -35,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements ChatFragment.Chat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         viewModel = new ViewModelProvider(this).get(AuthenticationViewModel.class);
 
@@ -114,6 +114,16 @@ public class MainActivity extends AppCompatActivity implements ChatFragment.Chat
     @Override
     public void OnChatClose() {
         bottomNavigationView.setVisibility(View.VISIBLE);
+        addPostFab.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onUserProfileFragmentOpened() {
+        addPostFab.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onUserProfileFragmentClosed() {
         addPostFab.setVisibility(View.VISIBLE);
     }
 }
