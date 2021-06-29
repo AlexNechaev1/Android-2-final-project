@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_explorer"
         android:title="Explorer"/>
     <item
-        android:id="@+id/nav_chat_page"
+        android:id="@+id/chatListFragment"
         android:enabled="true"
         android:icon="@drawable/ic_chat"
         android:title="Chat"/>

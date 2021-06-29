@@ -62,10 +62,10 @@
             android:padding="15dp">
 
             <Button
-                android:id="@+id/car_follow_btn"
+                android:id="@+id/car_send_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/follow"
+                android:text="@string/message_to_seller"
                 android:textAllCaps="false"
                 android:visibility="visible"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="8dp"
                 android:textSize="20sp"
-                app:layout_constraintTop_toBottomOf="@+id/car_follow_btn" />
+                app:layout_constraintTop_toBottomOf="@+id/car_send_message" />
 
             <TextView
                 android:id="@+id/manufacture_year_text_view"
