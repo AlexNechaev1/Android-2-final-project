@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.android_2_final_project.fragments.AddPostDialogFragment;
+import com.example.android_2_final_project.fragments.ChatFragment;
 import com.example.android_2_final_project.viewmodels.AuthenticationViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -23,10 +24,12 @@ import com.google.firebase.auth.FirebaseUser;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ChatFragment.ChatFragmentListener {
 
     private FirebaseAuth.AuthStateListener mAuthListener;
     private AuthenticationViewModel viewModel;
+    BottomNavigationView bottomNavigationView;
+    FloatingActionButton addPostFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(AuthenticationViewModel.class);
 
-        FloatingActionButton addPostFab = findViewById(R.id.add_post_fab);
+        addPostFab = findViewById(R.id.add_post_fab);
         addPostFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_menu);
+        bottomNavigationView = findViewById(R.id.nav_menu);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -98,5 +103,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void OnChatOpen() {
+        bottomNavigationView.setVisibility(View.GONE);
+        addPostFab.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void OnChatClose() {
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        addPostFab.setVisibility(View.VISIBLE);
     }
 }
