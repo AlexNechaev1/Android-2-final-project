@@ -27,4 +27,7 @@
     <string name="edit">Edit</string>
     <string name="save">Save</string>
     <string name="post">Post</string>
+    <string name="car_model">Car model:</string>
+    <string name="manufactire_year">Manufactire year:</string>
+    <string name="description">Description:</string>
 </resources>

@@ -13,4 +13,6 @@
     <string name="submit">Submit</string>
     <string name="skip">Skip</string>
     <string name="password_length_error">Password must be greater or equal to 6</string>
+    <string name="car_model">Car model:</string>
+    <string name="description">Description:</string>
 </resources>

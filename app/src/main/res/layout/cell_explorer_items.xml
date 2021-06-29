@@ -15,24 +15,24 @@
         <ImageView
             android:id="@+id/explore_cell_imageView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
             android:background="@color/teal_700"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_foreground"
             android:transitionName="container_transition"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/gradient_background"
-            app:layout_constraintTop_toTopOf="@id/explore_cell_imageView"
-            app:layout_constraintStart_toStartOf="@id/explore_cell_imageView"
+            app:layout_constraintBottom_toBottomOf="@id/explore_cell_imageView"
             app:layout_constraintEnd_toEndOf="@id/explore_cell_imageView"
-            app:layout_constraintBottom_toBottomOf="@id/explore_cell_imageView"/>
+            app:layout_constraintStart_toStartOf="@id/explore_cell_imageView"
+            app:layout_constraintTop_toTopOf="@id/explore_cell_imageView" />
 
         <TextView
             android:id="@+id/car_model_tv"
@@ -50,15 +50,13 @@
             android:id="@+id/manufacture_year_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2021"
             android:layout_marginEnd="5dp"
+            android:text="2021"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/car_model_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/car_model_tv" />
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

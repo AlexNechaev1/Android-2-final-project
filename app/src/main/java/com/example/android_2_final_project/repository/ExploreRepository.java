@@ -39,7 +39,6 @@ public class ExploreRepository {
     }
 
     public void getRealtimePosts() {
-        Log.d("TAG", "getRealtimePosts: ");
         mDatabase.child("posts").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {

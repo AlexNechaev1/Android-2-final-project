@@ -29,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ExploreFragment extends Fragment implements ExploreRecyclerViewAdapter.ItemClickListener {
 
     public static final String POSTS_KEY = "explore.posts";
-    private List<PostModel> exploreCarList = new ArrayList<>();
+    private List<PostModel> exploreCarList;
     private ExploreRecyclerViewAdapter mAdapter;
 
     private ExploreViewModel viewModel;
@@ -37,6 +37,8 @@ public class ExploreFragment extends Fragment implements ExploreRecyclerViewAdap
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        exploreCarList = new ArrayList<>();
 
         mAdapter = new ExploreRecyclerViewAdapter(getActivity(), exploreCarList);
         mAdapter.setClickListener(this);
@@ -70,12 +72,16 @@ public class ExploreFragment extends Fragment implements ExploreRecyclerViewAdap
         viewModel.getPost().observe(getViewLifecycleOwner(), new Observer<PostModel>() {
             @Override
             public void onChanged(PostModel post) {
-                exploreCarList.add(post);
-                mAdapter.notifyDataSetChanged();
+                if (!exploreCarList.contains(post)) {
+                    exploreCarList.add(post);
+                    mAdapter.notifyDataSetChanged();
+                }
             }
         });
 
-        viewModel.getRealtimePosts();
+        if (exploreCarList.isEmpty()) {
+            viewModel.getRealtimePosts();
+        }
 
         recyclerView.setAdapter(mAdapter);
 
