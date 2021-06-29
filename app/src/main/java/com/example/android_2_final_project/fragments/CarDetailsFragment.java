@@ -37,8 +37,8 @@ import static com.example.android_2_final_project.fragments.ExploreFragment.POST
 @AndroidEntryPoint
 public class CarDetailsFragment extends Fragment {
 
-    private Button mFollowCar;
-    private Button mSeeSellerProfile;
+    private Button mMessageToSellerBtn;
+    private Button mSeeSellerProfileBtn;
 
     private ImageView mCarImage;
     private TextView mCarModelTv;
@@ -51,6 +51,10 @@ public class CarDetailsFragment extends Fragment {
     private DatabaseReference mDatabase;
 
     private AuthenticationViewModel viewModel;
+
+    private PostModel post;
+
+    public static final String SELLER_UID_KEY = "SELLER_UID_KEY";
 
     @Nullable
     @Override
@@ -73,7 +77,7 @@ public class CarDetailsFragment extends Fragment {
     }
 
     private void populateViews() {
-        PostModel post = (PostModel) requireArguments().getSerializable(POSTS_KEY);
+        post = (PostModel) requireArguments().getSerializable(POSTS_KEY);
 
         Glide.with(this).load(post.getCar().getImagePath()).into(mCarImage);
         mCarModelTv.setText(post.getCar().getCarModel());
@@ -82,13 +86,16 @@ public class CarDetailsFragment extends Fragment {
     }
 
     private void initListeners() {
-        mFollowCar.setOnClickListener(new View.OnClickListener() {
+        mMessageToSellerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(SELLER_UID_KEY,post.getSellerId());
+                Navigation.findNavController(v).navigate(R.id.action_carDetailsFragment_to_chatFragment,bundle);
             }
         });
 
-        mSeeSellerProfile.setOnClickListener(new View.OnClickListener() {
+        mSeeSellerProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_carDetailsFragment_to_profilePageFragment);
@@ -109,8 +116,8 @@ public class CarDetailsFragment extends Fragment {
         mManufactureYearTv = view.findViewById(R.id.manufacture_year_text_view);
         mDescriptionTv = view.findViewById(R.id.description_text_view);
 
-        mFollowCar = view.findViewById(R.id.car_follow_btn);
-        mSeeSellerProfile = view.findViewById(R.id.seller_profile_btn);
+        mMessageToSellerBtn = view.findViewById(R.id.car_send_message);
+        mSeeSellerProfileBtn = view.findViewById(R.id.seller_profile_btn);
 
         toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);

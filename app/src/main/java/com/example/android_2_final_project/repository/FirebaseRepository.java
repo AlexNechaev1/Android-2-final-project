@@ -42,6 +42,8 @@ public class FirebaseRepository {
         void OnRealtimeUserReceived(UserModel user);
 
         void OnCredentialsChanged();
+
+        void OnRealtimeSellerReceived(UserModel seller);
     }
 
     @Inject
@@ -176,6 +178,24 @@ public class FirebaseRepository {
 
                 if (listener != null) {
                     listener.OnRealtimeUserReceived(user);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void getRealtimeUserByUID(String UID) {
+        mDatabase.child("users").child(UID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                UserModel seller = snapshot.getValue(UserModel.class);
+
+                if (listener != null) {
+                    listener.OnRealtimeSellerReceived(seller);
                 }
             }
 
