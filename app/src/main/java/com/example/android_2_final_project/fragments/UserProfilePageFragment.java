@@ -57,6 +57,9 @@ public class UserProfilePageFragment extends Fragment {
     private FirebaseStorage mStorage;
     private StorageReference mStorageReference;
 
+    private BottomSheetBehavior mBottomSheetBehavior;
+    private BottomSheetDialog mBottomSheetDialog;
+
     private final static String PROFILE_IMAGE_STORAGE_PATH = "profile_image";
 
     private static final int GALLERY_REQUEST = 3;
@@ -144,8 +147,8 @@ public class UserProfilePageFragment extends Fragment {
     private void initViews(View view) {
 
         LinearLayout bottomSheet = view.findViewById(R.id.bottom_sheet);
-        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
         mProfileIv = view.findViewById(R.id.profile_picture_img);
 
@@ -176,6 +179,7 @@ public class UserProfilePageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 showBottomSheetDialog();
+
             }
         });
 
@@ -248,14 +252,20 @@ public class UserProfilePageFragment extends Fragment {
                     .into(mProfileIv);
 
             uploadImageToFirebase(Uri.fromFile(photoFile));
+
+            // close bottom sheet
+            if (mBottomSheetDialog != null) {
+                mBottomSheetDialog.dismiss();
+            }
         }
     });
 
     private void showBottomSheetDialog() {
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
-        bottomSheetDialog.setContentView(R.layout.bottom_sheet);
+        mBottomSheetDialog = new BottomSheetDialog(requireContext());
+        mBottomSheetDialog.setContentView(R.layout.bottom_sheet);
 
-        Button userCameraBtn = bottomSheetDialog.findViewById(R.id.use_camera_btn);
+
+        Button userCameraBtn = mBottomSheetDialog.findViewById(R.id.use_camera_btn);
         userCameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -275,7 +285,7 @@ public class UserProfilePageFragment extends Fragment {
             }
         });
 
-        Button galleryBtn = bottomSheetDialog.findViewById(R.id.choose_from_gallery_btn);
+        Button galleryBtn = mBottomSheetDialog.findViewById(R.id.choose_from_gallery_btn);
         galleryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -283,7 +293,7 @@ public class UserProfilePageFragment extends Fragment {
             }
         });
 
-        bottomSheetDialog.show();
+        mBottomSheetDialog.show();
     }
 
     private void pickImageFromGalleryConfirmPermission() {
@@ -298,6 +308,8 @@ public class UserProfilePageFragment extends Fragment {
         } else {
             pickImageFromGallery();
         }
+
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     }
 
     private void pickImageFromGallery() {
@@ -321,6 +333,10 @@ public class UserProfilePageFragment extends Fragment {
                         .apply(new RequestOptions().transform(new CenterCrop(), new RoundedCorners(50)))
                         .into(mProfileIv);
                 uploadImageToFirebase(imageUri);
+
+                if (mBottomSheetDialog != null) {
+                    mBottomSheetDialog.dismiss();
+                }
             }
         }
     }
