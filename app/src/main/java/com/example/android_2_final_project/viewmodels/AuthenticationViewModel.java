@@ -26,6 +26,8 @@ public class AuthenticationViewModel extends ViewModel
 
     private final MutableLiveData<UserModel> mRealtimeUser = new MutableLiveData<>();
 
+    private final MutableLiveData<UserModel> mSeller = new MutableLiveData<>();
+
     private AuthListener listener;
 
     public interface AuthListener {
@@ -96,6 +98,19 @@ public class AuthenticationViewModel extends ViewModel
     @Override
     public void OnCredentialsChanged() {
         FirebaseAuth.getInstance().signOut();
+    }
+
+    @Override
+    public void OnRealtimeSellerReceived(UserModel seller) {
+        mSeller.setValue(seller);
+    }
+
+    public LiveData<UserModel> getSeller() {
+        return mSeller;
+    }
+
+    public void getUserByUID(String UID){
+        mFirebaseRepository.getRealtimeUserByUID(UID);
     }
 
     public LiveData<UserModel> getRealtimeUser() {
