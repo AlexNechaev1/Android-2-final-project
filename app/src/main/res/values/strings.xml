@@ -30,4 +30,5 @@
     <string name="car_model">Car model:</string>
     <string name="manufactire_year">Manufactire year:</string>
     <string name="description">Description:</string>
+    <string name="message_to_seller">message to seller</string>
 </resources>
