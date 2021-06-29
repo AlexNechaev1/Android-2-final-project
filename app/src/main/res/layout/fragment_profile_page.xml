@@ -8,7 +8,7 @@
         android:id="@+id/profile_picture_img"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="40dp"
+        android:layout_marginHorizontal="80dp"
         android:layout_marginTop="40dp"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintDimensionRatio="1:1"
@@ -21,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Profile name"
+        android:layout_marginTop="20dp"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,38 +29,18 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_picture_img" />
 
     <TextView
-        android:id="@+id/followers_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="followers"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_name_text_view" />
-
-    <TextView
         android:id="@+id/profile_bio_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="15dp"
         android:background="#E8F5E9"
+        android:layout_marginHorizontal="40dp"
         android:minLines="8"
         android:padding="5dp"
         android:text="bio:"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/profile_picture_img"
-        app:layout_constraintStart_toStartOf="@+id/profile_picture_img"
-        app:layout_constraintTop_toBottomOf="@+id/followers_text_view" />
-
-    <Button
-        android:id="@+id/profile_sells_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/sells"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/profile_picture_img"
-        app:layout_constraintStart_toStartOf="@+id/profile_picture_img"
-        app:layout_constraintTop_toBottomOf="@+id/profile_bio_text_view" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_name_text_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

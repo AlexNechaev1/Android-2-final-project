@@ -35,8 +35,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.UUID;
-
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint

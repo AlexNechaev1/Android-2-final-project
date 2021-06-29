@@ -22,6 +22,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
+
 import dagger.hilt.android.qualifiers.ApplicationContext;
 
 public class ChatListRecyclerViewAdapter extends FirebaseRecyclerAdapter<String, ChatListRecyclerViewAdapter.ChatViewHolder > {
@@ -56,14 +58,15 @@ public class ChatListRecyclerViewAdapter extends FirebaseRecyclerAdapter<String,
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()){
 
-                    UserModel user = task.getResult().getValue(UserModel.class);
-                    Glide.with(mContext).load(user.getProfileImage()).into(holder.profileIv);
+                    UserModel user = Objects.requireNonNull(task.getResult()).getValue(UserModel.class);
+                    Glide.with(mContext)
+                            .load(Objects.requireNonNull(user).getProfileImage())
+                            .into(holder.profileIv);
+
                     holder.contactName.setText(user.getUsername());
                 }
             }
         });
-
-
 //        holder.contactName.setText(string);
 //        Glide.with(mContext).load(model.getContact().getProfileImage()).into(holder.profileIv);
     }
