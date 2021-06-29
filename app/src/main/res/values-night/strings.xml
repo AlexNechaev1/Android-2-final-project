@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android-2-final-project</string>
+    <string name="app_name">AutoMarket</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -10,7 +10,6 @@
     <string name="repeat_password">Repeat password</string>
     <string name="question_number_1">Question number 1</string>
     <string name="signup_answer_intro">Help us to help you!<br/>Answer those simple questions to eliminate unwanted results</string>
-    <string name="submit">Submit</string>
     <string name="skip">Skip</string>
     <string name="password_length_error">Password must be greater or equal to 6</string>
     <string name="car_model">Car model:</string>
