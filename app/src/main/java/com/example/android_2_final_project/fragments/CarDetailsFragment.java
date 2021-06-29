@@ -99,7 +99,9 @@ public class CarDetailsFragment extends Fragment {
         mSeeSellerProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_carDetailsFragment_to_profilePageFragment);
+                Bundle bundle = new Bundle();
+                bundle.putString(SELLER_UID_KEY, post.getSellerId());
+                Navigation.findNavController(v).navigate(R.id.action_carDetailsFragment_to_profilePageFragment, bundle);
             }
         });
 
