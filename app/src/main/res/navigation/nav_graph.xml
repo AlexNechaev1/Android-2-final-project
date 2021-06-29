@@ -53,6 +53,9 @@
             app:exitAnim="@anim/exit_to_left"
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/exit_to_right" />
+        <action
+            android:id="@+id/action_carDetailsFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpPageOneFragment"
@@ -96,5 +99,23 @@
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/exit_to_right"
             app:popUpTo="@id/userProfilePageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        tools:layout="@layout/fragment_chat"
+        android:name="com.example.android_2_final_project.fragments.ChatFragment"
+        android:label="ChatFragment" />
+    <fragment
+        android:id="@+id/chatListFragment"
+        tools:layout="@layout/fragment_chat_list"
+        android:name="com.example.android_2_final_project.fragments.ChatListFragment"
+        android:label="ChatListFragment" >
+        <action
+            android:id="@+id/action_chatListFragment_to_chatFragment"
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right"/>
     </fragment>
 </navigation>
