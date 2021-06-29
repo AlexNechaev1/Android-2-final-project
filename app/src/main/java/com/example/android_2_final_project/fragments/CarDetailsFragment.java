@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -90,8 +91,8 @@ public class CarDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString(SELLER_UID_KEY,post.getSellerId());
-                Navigation.findNavController(v).navigate(R.id.action_carDetailsFragment_to_chatFragment,bundle);
+                bundle.putString(SELLER_UID_KEY, post.getSellerId());
+                Navigation.findNavController(v).navigate(R.id.action_carDetailsFragment_to_chatFragment, bundle);
             }
         });
 
@@ -138,13 +139,13 @@ public class CarDetailsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_car_detail,menu);
+        inflater.inflate(R.menu.menu_car_detail, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_go_to_seller:
                 NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
                 NavController navController = navHostFragment.getNavController();
