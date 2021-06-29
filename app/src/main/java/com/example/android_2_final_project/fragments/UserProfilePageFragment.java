@@ -55,11 +55,6 @@ public class UserProfilePageFragment extends Fragment {
 
     private final static String PROFILE_IMAGE_STORAGE_PATH = "profile_image";
 
-    private static final int PICK_IMAGE_REQUEST = 001;
-    private static final int RESULT_OK = 010;
-    private static final int PICK_PHOTO_FOR_AVATAR = 002;
-    private static final int WRITE_PERMISSION_REQUEST = 1;
-    private static final int CAMERA_REQUEST = 2;
     private static final int GALLERY_REQUEST = 3;
     private Button mEditChangesBtn;
     private ImageButton mProfileUserPictureEditBtn;
