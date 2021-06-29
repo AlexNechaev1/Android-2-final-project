@@ -143,8 +143,12 @@ public class ChatFragment extends Fragment {
     }
 
     private void createChat() {
-        mChatId= mUserChatsReference.child(mSellerUID).push().getKey();
-//        String chatUID = UUID.randomUUID().toString();
+        mChatId = mUserChatsReference.child(mSellerUID).push().getKey();
+
+        mRootDbReference.child("users").child(mSellerUID).child("chats")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .setValue(mChatId);
+
         mUserChatsReference.child(mSellerUID).setValue(mChatId).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -195,7 +199,6 @@ public class ChatFragment extends Fragment {
     }
 
     private void sendMessage() {
-
         String key = mRootDbReference.child("chats").child(mChatId).push().getKey();
 
         MessageModel message = new MessageModel(
@@ -203,7 +206,9 @@ public class ChatFragment extends Fragment {
                 FirebaseAuth.getInstance().getCurrentUser().getUid()
         );
 
-         mRootDbReference.child("chats").child(mChatId).child(key).setValue(message);
+        mMessageContainerET.setText("");
+
+        mRootDbReference.child("chats").child(mChatId).child(key).setValue(message);
     }
 
     @Override
