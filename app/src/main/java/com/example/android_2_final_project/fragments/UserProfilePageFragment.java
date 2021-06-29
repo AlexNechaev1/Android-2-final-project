@@ -2,6 +2,7 @@ package com.example.android_2_final_project.fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -30,6 +31,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.android_2_final_project.R;
 import com.example.android_2_final_project.models.UserModel;
 import com.example.android_2_final_project.viewmodels.AuthenticationViewModel;
@@ -82,6 +86,24 @@ public class UserProfilePageFragment extends Fragment {
 
     AuthenticationViewModel viewModel;
 
+    public interface UserProfileFragmentListener {
+        void onUserProfileFragmentOpened();
+
+        void onUserProfileFragmentClosed();
+    }
+
+    private UserProfileFragmentListener listener;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            listener = (UserProfileFragmentListener) context;
+        } catch (ClassCastException ex) {
+            throw new ClassCastException("The called activity is without implementation of the UserProfileFragmentListener");
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_user_profile_page, container, false);
@@ -90,6 +112,8 @@ public class UserProfilePageFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        listener.onUserProfileFragmentOpened();
 
         mStorage = FirebaseStorage.getInstance();
         mStorageReference = mStorage.getReference();
@@ -115,8 +139,7 @@ public class UserProfilePageFragment extends Fragment {
                     public void onActivityResult(Boolean isGranted) {
                         if (isGranted) {
                             pickImageFromGallery();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(getContext(), "Need permission to add image", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -184,7 +207,7 @@ public class UserProfilePageFragment extends Fragment {
         });
     }
 
-    private void uploadImageToFirebase(Uri uri){
+    private void uploadImageToFirebase(Uri uri) {
         StorageReference ref = mStorageReference
                 .child(PROFILE_IMAGE_STORAGE_PATH)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -224,7 +247,10 @@ public class UserProfilePageFragment extends Fragment {
         @Override
         public void onActivityResult(Boolean result) {
 
-            Glide.with(requireActivity()).load(photoFile.getAbsoluteFile()).into(mProfileIv);
+            Glide.with(requireActivity())
+                    .load(photoFile.getAbsoluteFile())
+                    .apply(new RequestOptions().transform(new CenterCrop(), new RoundedCorners(50)))
+                    .into(mProfileIv);
 
             uploadImageToFirebase(Uri.fromFile(photoFile));
         }
@@ -271,12 +297,10 @@ public class UserProfilePageFragment extends Fragment {
 
             if (hasWritePermission == PackageManager.PERMISSION_GRANTED) {
                 pickImageFromGallery();
-            }
-            else {
+            } else {
                 startPermissionRequest(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             }
-        }
-        else {
+        } else {
             pickImageFromGallery();
         }
     }
@@ -297,7 +321,10 @@ public class UserProfilePageFragment extends Fragment {
         if (requestCode == GALLERY_REQUEST && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 imageUri = data.getData();
-                Glide.with(this).load(imageUri).into(mProfileIv);
+                Glide.with(this)
+                        .load(imageUri)
+                        .apply(new RequestOptions().transform(new CenterCrop(), new RoundedCorners(50)))
+                        .into(mProfileIv);
                 uploadImageToFirebase(imageUri);
             }
         }
@@ -310,8 +337,7 @@ public class UserProfilePageFragment extends Fragment {
             mEmailEt.setEnabled(true);
             mBioEt.setEnabled(true);
             mEditChangesBtn.setText(getResources().getString(R.string.save));
-        }
-        else {
+        } else {
             //TODO collect the data from all field and override the existing on in the database
             mUsernameEt.setEnabled(false);
             mEmailEt.setEnabled(false);
@@ -340,7 +366,16 @@ public class UserProfilePageFragment extends Fragment {
         mBioEt.setText(mUser.getBio());
 
         if (mUser.getProfileImage() != null) {
-            Glide.with(this).load(mUser.getProfileImage()).into(mProfileIv);
+            Glide.with(this)
+                    .load(mUser.getProfileImage())
+                    .apply(new RequestOptions().transform(new CenterCrop(), new RoundedCorners(50)))
+                    .into(mProfileIv);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        listener.onUserProfileFragmentClosed();
     }
 }
