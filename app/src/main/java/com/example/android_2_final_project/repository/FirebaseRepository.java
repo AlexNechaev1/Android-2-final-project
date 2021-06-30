@@ -44,6 +44,8 @@ public class FirebaseRepository {
         void OnCredentialsChanged();
 
         void OnRealtimeSellerReceived(UserModel seller);
+
+        void OnRealtimeUserSaved(UserModel user);
     }
 
     @Inject
@@ -59,8 +61,26 @@ public class FirebaseRepository {
      */
     public void saveUser(UserModel user) {
         if (mFirebaseAuth.getCurrentUser() != null) {
-            mDatabase.child("users")
-                    .child(mFirebaseAuth.getCurrentUser().getUid()).setValue(user);
+            DatabaseReference userReference = mDatabase.child("users")
+                    .child(mFirebaseAuth.getCurrentUser().getUid());
+
+            userReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        UserModel updatedUser = task.getResult().getValue(UserModel.class);
+                        updatedUser.setBio(user.getBio());
+                        updatedUser.setUsername(user.getUsername());
+                        updatedUser.setEmail(user.getEmail());
+
+                        userReference.setValue(updatedUser);
+
+                        if (listener != null) {
+                            listener.OnRealtimeUserSaved(updatedUser);
+                        }
+                    }
+                }
+            });
         }
 
 //            mFirebaseAuth.getCurrentUser().updateEmail(mFirebaseAuth.getCurrentUser().getEmail()).addOnCompleteListener(new OnCompleteListener<Void>() {

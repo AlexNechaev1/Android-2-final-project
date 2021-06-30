@@ -5,6 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @IgnoreExtraProperties
 public class UserModel implements Serializable {
@@ -14,7 +15,7 @@ public class UserModel implements Serializable {
     private List<String> answers;
     private String bio;
     private String profileImage;
-    private List<String> following;
+    private Map<String, String> chats;
 
     public UserModel() {
     }
@@ -24,21 +25,21 @@ public class UserModel implements Serializable {
                      List<String> answers,
                      String bio,
                      String profileImage,
-                     List<String> following) {
+                     Map<String, String> chats) {
         this.email = email;
         this.username = username;
         this.answers = answers;
         this.bio = bio;
         this.profileImage = profileImage;
-        this.following = following;
+        this.chats = chats;
     }
 
-    public List<String> getFollowing() {
-        return following;
+    public Map<String, String> getChats() {
+        return chats;
     }
 
-    public void setFollowing(List<String> following) {
-        this.following = following;
+    public void setChats(Map<String, String> chats) {
+        this.chats = chats;
     }
 
     public String getProfileImage() {

@@ -27,6 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -37,10 +38,14 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.android_2_final_project.R;
 import com.example.android_2_final_project.models.UserModel;
 import com.example.android_2_final_project.viewmodels.AuthenticationViewModel;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -125,6 +130,12 @@ public class UserProfilePageFragment extends Fragment {
         setListeners(view);
 
         viewModel = new ViewModelProvider(requireActivity()).get(AuthenticationViewModel.class);
+        viewModel.getRealtimeUser().observe(getViewLifecycleOwner(), new Observer<UserModel>() {
+            @Override
+            public void onChanged(UserModel userModel) {
+                mUser = userModel;
+            }
+        });
 
         mUser = viewModel.getRealtimeUser().getValue();
         populateView();
@@ -223,20 +234,27 @@ public class UserProfilePageFragment extends Fragment {
                                                       .addOnSuccessListener(new OnSuccessListener<Uri>() {
                                                           @Override
                                                           public void onSuccess(Uri uri) {
+                                                              DatabaseReference userReference =
+                                                                      FirebaseDatabase
+                                                                              .getInstance()
+                                                                              .getReference()
+                                                                              .child("users")
+                                                                              .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-                                                              UserModel user = viewModel.getRealtimeUser().getValue();
-                                                              user.setProfileImage(uri.toString());
-                                                              // save in real time
-                                                              FirebaseDatabase
-                                                                      .getInstance()
-                                                                      .getReference()
-                                                                      .child("users")
-                                                                      .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                                                      .setValue(user);
+                                                              userReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                                  @Override
+                                                                  public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                                      if (task.isSuccessful()) {
+                                                                          UserModel user = task.getResult().getValue(UserModel.class);
 
+                                                                          user.setProfileImage(uri.toString());
+
+                                                                          userReference.setValue(user);
+                                                                      }
+                                                                  }
+                                                              });
                                                           }
                                                       });
-
                                           }
                                       }
                 );
@@ -371,7 +389,6 @@ public class UserProfilePageFragment extends Fragment {
 
 
     private void populateView() {
-        //TODO add setImg
         mUsernameEt.setText(mUser.getUsername());
         mEmailEt.setText(mUser.getEmail());
         mBioEt.setText(mUser.getBio());

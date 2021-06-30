@@ -105,6 +105,11 @@ public class AuthenticationViewModel extends ViewModel
         mSeller.setValue(seller);
     }
 
+    @Override
+    public void OnRealtimeUserSaved(UserModel user) {
+        mRealtimeUser.setValue(user);
+    }
+
     public LiveData<UserModel> getSeller() {
         return mSeller;
     }
@@ -117,18 +122,11 @@ public class AuthenticationViewModel extends ViewModel
         return mRealtimeUser;
     }
 
-    public void saveRealTimeUser(UserModel user) {
-        mRealtimeUser.setValue(user);
-        mFirebaseRepository.saveUser(user);
-    }
-
-
     public void getRealtimeUserFromDB() {
         mFirebaseRepository.getRealtimeUser();
     }
 
     public void saveUser(UserModel user) {
-        mUser.setValue(null);
         mFirebaseRepository.saveUser(user);
     }
 
